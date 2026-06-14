@@ -3,8 +3,9 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
-  <title>Uncle Joe and Adding of Like Fractions</title>
+  <title>Space Max and Adding Like Fractions</title>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/loaders/GLTFLoader.js"></script>
   <style>
     :root{
       --bg:#050613;
@@ -66,20 +67,20 @@
     .coverActions{display:flex;flex-wrap:wrap;gap:10px;margin-top:14px;}
     .howPanel{display:none;margin-top:10px;padding:12px;border-radius:16px;background:rgba(0,0,0,.22);border:1px solid rgba(255,255,255,.12);font-size:13px;line-height:1.35;color:#dce8ff;}
     .howPanel ol{margin:6px 0 0 18px;padding:0;}
-    .coverArt{min-height:320px;position:relative;border-radius:24px;border:1px solid rgba(255,255,255,.12);background:radial-gradient(circle at 63% 40%,rgba(96,165,250,.34),transparent 26%), radial-gradient(circle at 38% 60%,rgba(34,211,238,.24),transparent 32%), radial-gradient(circle at 24% 24%,rgba(167,139,250,.18),transparent 24%), #060818;overflow:hidden;box-shadow:inset 0 0 45px rgba(140,236,255,.09);}
-    .coverPlanet{position:absolute;width:190px;height:190px;right:34px;bottom:34px;border-radius:50%;background:radial-gradient(circle at 32% 28%,#dcfff8 0 8%,#4dd6c2 26%,#2765a8 62%,#1a2f64 100%);box-shadow:0 0 54px rgba(77,214,194,.34);}
-    .coverPlanet:after{content:"";position:absolute;inset:38px -28px;border:10px solid rgba(166,255,244,.55);border-left-color:transparent;border-right-color:transparent;border-radius:50%;transform:rotate(-18deg);}
-    .coverAsteroid{position:absolute;width:80px;height:80px;left:54px;top:45px;border-radius:46% 54% 50% 44%;background:radial-gradient(circle at 30% 32%,#c6b19b,#5e463a 52%,#231b1e 100%);box-shadow:-18px -14px 34px rgba(255,115,61,.42);animation: coverAst 2.4s ease-in-out infinite alternate;}
-    .coverAsteroid:before{content:"";position:absolute;right:70%;top:22px;width:140px;height:34px;border-radius:50%;background:linear-gradient(90deg,transparent,rgba(255,68,68,.18),rgba(255,216,107,.55));filter:blur(2px);}
+    .coverArt{min-height:320px;position:relative;border-radius:24px;border:1px solid rgba(255,255,255,.12);background:radial-gradient(circle at 63% 45%,rgba(255,105,180,.38),transparent 26%), radial-gradient(circle at 38% 60%,rgba(82,255,182,.22),transparent 32%), #070817;overflow:hidden;box-shadow:inset 0 0 45px rgba(140,236,255,.09);}
+    .coverRocket{position:absolute;width:190px;height:190px;right:34px;bottom:34px;border-radius:50%;background:radial-gradient(circle at 32% 28%,#ffd8a3 0 8%,#d97a24 28%,#8b4314 70%);box-shadow:0 0 48px rgba(255,177,95,.35);}
+    .coverRocket:after{content:"";position:absolute;inset:38px -28px;border:10px solid rgba(255,216,107,.55);border-left-color:transparent;border-right-color:transparent;border-radius:50%;transform:rotate(-18deg);}
+    .coverFuelWarning{position:absolute;width:80px;height:80px;left:54px;top:45px;border-radius:46% 54% 50% 44%;background:radial-gradient(circle at 30% 32%,#c6b19b,#5e463a 52%,#231b1e 100%);box-shadow:-18px -14px 34px rgba(255,115,61,.42);animation: coverAst 2.4s ease-in-out infinite alternate;}
+    .coverFuelWarning:before{content:"";position:absolute;right:70%;top:22px;width:140px;height:34px;border-radius:50%;background:linear-gradient(90deg,transparent,rgba(255,68,68,.18),rgba(255,216,107,.55));filter:blur(2px);}
     @keyframes coverAst{to{transform:translate(20px,24px) rotate(18deg)}}
     .coverJoe{position:absolute;left:46px;bottom:52px;width:80px;height:138px;filter:drop-shadow(0 15px 18px rgba(0,0,0,.4));}
     .coverJoe .head{position:absolute;top:0;left:22px;width:42px;height:42px;border-radius:50%;background:#ffd1a9;border:3px solid rgba(255,255,255,.22);}
     .coverJoe .body{position:absolute;top:40px;left:12px;width:60px;height:70px;border-radius:20px 20px 15px 15px;background:linear-gradient(#ff9e3d,#d94e6a);border:3px solid rgba(255,255,255,.16);}
     .coverJoe .leg1,.coverJoe .leg2{position:absolute;top:103px;width:18px;height:34px;border-radius:10px;background:#304f8d;}
     .coverJoe .leg1{left:20px}.coverJoe .leg2{right:15px}
-    .coverLauncher{position:absolute;right:34px;top:52px;width:140px;height:100px;transform:rotate(-10deg);}
-    .coverLauncher .tube{position:absolute;right:8px;top:14px;width:120px;height:34px;border-radius:20px;background:linear-gradient(90deg,#b9f8ff,#32d0ff 48%,#ff6b6b);box-shadow:0 0 32px rgba(80,221,255,.38);}
-    .coverLauncher .base{position:absolute;left:34px;top:54px;width:70px;height:38px;border-radius:18px;background:linear-gradient(#89f0ff,#4f7bff);}
+    .coverRefueler{position:absolute;right:34px;top:52px;width:140px;height:100px;transform:rotate(-10deg);}
+    .coverRefueler .tube{position:absolute;right:8px;top:14px;width:120px;height:34px;border-radius:20px;background:linear-gradient(90deg,#6ff7ff,#9661ff);box-shadow:0 0 32px rgba(140,236,255,.38);}
+    .coverRefueler .base{position:absolute;left:34px;top:54px;width:70px;height:38px;border-radius:18px;background:linear-gradient(#ffce66,#ff7aa8);}
     .teacherPanel{position:absolute;right:12px;bottom:calc(104px + var(--safeBottom));width:min(270px,calc(100vw - 24px));border-radius:18px;border:1px solid rgba(255,255,255,.18);background:rgba(8,11,28,.84);box-shadow:var(--shadow);padding:12px;display:none;z-index:12;backdrop-filter:blur(10px);}
     .teacherPanel h3{margin:0 0 8px;font-size:15px;color:var(--gold);}
     .teacherPanel input{width:100%;border:1px solid rgba(140,236,255,.35);background:rgba(255,255,255,.08);border-radius:12px;padding:11px;color:#fff;font-size:15px;outline:none;}
@@ -158,7 +159,7 @@
     .sceneTitle strong{font-size:clamp(18px,4vw,38px);display:block;letter-spacing:.4px;}
     .sceneTitle span{font-size:clamp(12px,2.2vw,16px);color:#d2e5ff;}
     .skipBtn{position:absolute;right:14px;bottom:14px;z-index:9;background:rgba(255,255,255,.14);border:1px solid rgba(255,255,255,.22);padding:10px 13px;border-radius:14px;}
-    .cPlanet{position:absolute;width:210px;height:210px;border-radius:50%;right:10%;bottom:14%;background:radial-gradient(circle at 35% 28%,#dcfff8,#4dd6c2 24%,#2765a8 58%,#1a2f64 100%);box-shadow:0 0 70px rgba(77,214,194,.35);}
+    .cRocket{position:absolute;width:210px;height:210px;border-radius:50%;right:10%;bottom:14%;background:radial-gradient(circle at 35% 28%,#ffd9a6,#d97a24 23%,#9d4e17 58%,#52260b 100%);box-shadow:0 0 70px rgba(255,183,95,.35);}
     .cAsteroid{position:absolute;width:80px;height:80px;border-radius:48% 52% 46% 54%;left:12%;top:18%;background:radial-gradient(circle at 30% 30%,#d8c6aa,#594537 55%,#1e1718);box-shadow:-25px -16px 45px rgba(255,86,50,.55);animation: introRock 4.2s ease-in forwards;}
     .cAsteroid:before{content:"";position:absolute;width:180px;height:44px;right:62%;top:15px;border-radius:50%;background:linear-gradient(90deg,transparent,rgba(255,54,40,.22),rgba(255,200,70,.72));filter:blur(3px);}
     @keyframes introRock{0%{transform:translate(0,0) scale(1) rotate(0deg)}100%{transform:translate(56vw,35vh) scale(1.45) rotate(55deg)}}
@@ -186,9 +187,497 @@
     .endInner h2{font-size:clamp(28px,7vw,58px);margin:0 0 8px;color:#fff;text-shadow:0 0 32px rgba(124,255,178,.48);}.endInner p{color:#d8ffe8;font-size:clamp(14px,2.4vw,18px);line-height:1.45}.endInner .badge{display:inline-block;margin:12px 0 16px;padding:10px 14px;border-radius:999px;background:rgba(124,255,178,.12);border:1px solid rgba(124,255,178,.45);font-weight:900;color:#baffd4;}
     .fallback3d{position:absolute;inset:0;display:none;align-items:center;justify-content:center;text-align:center;padding:20px;background:radial-gradient(circle,#16245c,#02030a);color:#dce8ff;z-index:1;}
     .fallback3d strong{display:block;font-size:22px;color:#fff;margin-bottom:8px;}
+
+    .dialogueOverlay{position:absolute;inset:0;z-index:35;display:none;align-items:flex-end;justify-content:center;padding:18px;background:linear-gradient(180deg,rgba(0,0,0,.12),rgba(0,0,0,.52));pointer-events:auto;}
+    .dialogueCard{width:min(820px,96vw);border-radius:24px;border:1px solid rgba(140,236,255,.55);background:linear-gradient(145deg,rgba(7,14,34,.96),rgba(48,18,75,.93));box-shadow:0 24px 80px rgba(0,0,0,.66), inset 0 0 28px rgba(140,236,255,.07);padding:14px 16px 16px;}
+    .speakerRow{display:flex;align-items:center;gap:10px;margin-bottom:8px;}
+    .speakerDot{width:34px;height:34px;border-radius:50%;display:grid;place-items:center;background:linear-gradient(135deg,#ff70d7,#ffd86b);box-shadow:0 0 20px rgba(255,112,215,.35);font-size:18px;}
+    .speakerName{font-weight:900;color:var(--gold);letter-spacing:.3px;}
+    .dialogueText{min-height:54px;color:#f6fbff;font-size:clamp(16px,3.2vw,22px);line-height:1.35;font-weight:800;text-shadow:0 0 14px rgba(140,236,255,.16);}
+    .dialogueActions{display:flex;justify-content:flex-end;gap:10px;margin-top:12px;}
+    .dialogueActions button{border-radius:14px;padding:10px 14px;background:linear-gradient(135deg,#1fb6ff,#9b5cff);border:1px solid rgba(207,244,255,.6);box-shadow:0 8px 20px rgba(0,0,0,.27);}
+    .partReward{display:inline-block;margin-top:8px;padding:8px 12px;border-radius:999px;background:rgba(255,216,107,.12);border:1px solid rgba(255,216,107,.45);color:#fff1b6;font-weight:900;}
+
     @media (max-width:760px){
-      .coverGrid{grid-template-columns:1fr;gap:10px}.coverArt{min-height:230px}.coverPlanet{width:145px;height:145px;right:24px;bottom:18px}.coverAsteroid{width:58px;height:58px}.coverJoe{transform:scale(.74);transform-origin:left bottom}.coverLauncher{transform:scale(.78) rotate(-10deg);transform-origin:right top}.learnGrid{grid-template-columns:1fr;gap:9px}.learnCard:nth-child(2){display:none}.missionBox{bottom:calc(104px + var(--safeBottom));font-size:12px}.teacherPanel{bottom:calc(104px + var(--safeBottom));}.topHud{gap:6px}.hudButtons{flex-direction:column}.miniBtn{min-height:34px;padding:7px 8px}.quizHead{align-items:flex-start;flex-direction:column}.quizFoot{align-items:stretch;flex-direction:column}.footActions{justify-content:stretch}.footActions button{flex:1}.bar{width:118px}.fractionBox{min-width:112px;padding:9px}.optionBtn{min-width:72px}.missionBox{width:min(310px,calc(100vw - 24px));}.controls{transform:scale(.92);transform-origin:left bottom}.actionPad{transform:scale(.92);transform-origin:right bottom}}
+      .coverGrid{grid-template-columns:1fr;gap:10px}.coverArt{min-height:230px}.coverRocket{width:145px;height:145px;right:24px;bottom:18px}.coverFuelWarning{width:58px;height:58px}.coverJoe{transform:scale(.74);transform-origin:left bottom}.coverRefueler{transform:scale(.78) rotate(-10deg);transform-origin:right top}.learnGrid{grid-template-columns:1fr;gap:9px}.learnCard:nth-child(2){display:none}.missionBox{bottom:calc(104px + var(--safeBottom));font-size:12px}.teacherPanel{bottom:calc(104px + var(--safeBottom));}.topHud{gap:6px}.hudButtons{flex-direction:column}.miniBtn{min-height:34px;padding:7px 8px}.quizHead{align-items:flex-start;flex-direction:column}.quizFoot{align-items:stretch;flex-direction:column}.footActions{justify-content:stretch}.footActions button{flex:1}.bar{width:118px}.fractionBox{min-width:112px;padding:9px}.optionBtn{min-width:72px}.missionBox{width:min(310px,calc(100vw - 24px));}.controls{transform:scale(.92);transform-origin:left bottom}.actionPad{transform:scale(.92);transform-origin:right bottom}}
     @media (max-height:610px){.coverArt{display:none}.coverCard{padding:14px}.coverCard h2{font-size:clamp(24px,5vw,40px)}.coverCard p{font-size:13px}.missionBox{display:none}.quizBody{padding:8px}.feedbackCard{min-height:48px}.fractionCompare{margin:4px 0}.bar{height:19px}.questionCard h3{font-size:16px}.optionBtn{font-size:28px;padding:7px 12px}.quizHead,.quizFoot{padding:8px 10px}.learnCard{padding:10px}.learnCard p{font-size:13px}}
+
+    /* ===== Space Max coherent series skin: cover, HUD, dialogue, buttons ===== */
+    :root{
+      --cyan:#72f7ff;
+      --cyan2:#1fc9ff;
+      --gold:#ffe36d;
+      --green:#65ff9d;
+      --red:#ff6b6b;
+      --purple:#b070ff;
+      --panel:rgba(4,10,32,.86);
+      --panel2:rgba(8,18,52,.94);
+      --line:rgba(114,247,255,.42);
+    }
+
+    .coverBtn,.smallBtn,.bigBtn,.pillBtn,.keyBtn,.primaryBtn,.secondaryBtn,.miniBtn{
+      border:none;
+      font-family:inherit;
+      font-weight:1000;
+      cursor:pointer;
+      touch-action:manipulation;
+    }
+
+    .coverBtn,.primaryBtn{
+      border-radius:16px;
+      color:#06142b;
+      background:linear-gradient(180deg,#fff5a8,#ffb23e);
+      box-shadow:0 6px 0 #8a5209,0 12px 24px rgba(0,0,0,.28);
+      font-size:18px;
+      padding:14px 22px;
+      min-height:54px;
+    }
+
+    .secondaryBtn,.miniBtn,.dialogueActions button,.quizFrameClose{
+      color:#eaffff;
+      background:linear-gradient(180deg,rgba(20,48,92,.96),rgba(6,12,35,.96));
+      border:1px solid rgba(114,247,255,.35);
+      box-shadow:0 5px 0 #081228,0 12px 22px rgba(0,0,0,.32);
+    }
+
+    .coverBtn:active,.primaryBtn:active,.secondaryBtn:active,.miniBtn:active,.dialogueActions button:active{
+      transform:translateY(3px);
+      box-shadow:0 2px 0 #083047;
+    }
+
+    .topHud{
+      position:fixed;
+      top:calc(8px + var(--safeTop));
+      left:50%;
+      right:auto;
+      transform:translateX(-50%);
+      z-index:20;
+      width:min(980px,calc(100vw - 16px));
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:8px;
+      flex-wrap:wrap;
+      padding:9px 12px;
+      border-radius:18px;
+      border:2px solid rgba(114,247,255,.48);
+      background:linear-gradient(180deg,rgba(8,24,58,.82),rgba(2,6,24,.84));
+      box-shadow:0 8px 30px rgba(0,0,0,.48),inset 0 0 24px rgba(114,247,255,.08);
+      backdrop-filter:blur(6px);
+      pointer-events:none;
+    }
+
+    .brandCard{
+      width:auto;
+      max-width:min(560px,100%);
+      padding:0;
+      border:0;
+      border-radius:0;
+      background:transparent;
+      box-shadow:none;
+      backdrop-filter:none;
+      pointer-events:auto;
+    }
+
+    .brandCard h1{
+      margin:0;
+      font-size:clamp(13px,1.8vw,20px);
+      color:#ddfdff;
+      text-shadow:0 0 12px rgba(114,247,255,.55);
+      font-weight:1000;
+      white-space:nowrap;
+    }
+
+    .brandCard p{display:none;}
+
+    .hudButtons{
+      display:flex;
+      gap:8px;
+      align-items:center;
+      flex-wrap:wrap;
+      pointer-events:auto;
+    }
+
+    .miniBtn{
+      min-height:40px;
+      padding:9px 12px;
+      border-radius:16px;
+      font-size:13px;
+    }
+
+    .missionBox{
+      left:12px;
+      top:calc(78px + var(--safeTop));
+      bottom:auto;
+      width:min(350px,calc(100vw - 24px));
+      padding:12px 14px;
+      border-radius:18px;
+      background:rgba(2,7,28,.72);
+      border:1px solid rgba(114,247,255,.3);
+      box-shadow:0 8px 24px rgba(0,0,0,.38);
+      font-size:13px;
+      line-height:1.34;
+      pointer-events:none;
+    }
+    .missionBox strong{color:#fff091;}
+    .missionBox span{color:#eaffff;font-weight:900;}
+
+    .screenOverlay{
+      position:fixed;
+      inset:0;
+      z-index:70;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      padding:clamp(6px,1.6vmin,14px);
+      overflow:hidden;
+      background:
+        radial-gradient(circle at 18% 12%,rgba(114,247,255,.18),transparent 30%),
+        radial-gradient(circle at 80% 24%,rgba(176,112,255,.17),transparent 28%),
+        linear-gradient(180deg,rgba(3,7,26,.96),rgba(3,3,18,.98));
+      color:#eaffff;
+    }
+
+    .coverCard{
+      width:min(760px,calc(100vw - 12px));
+      max-height:calc(100dvh - 12px);
+      overflow:hidden;
+      border:3px solid rgba(114,247,255,.72);
+      border-radius:clamp(18px,4vmin,28px);
+      padding:clamp(10px,2.2vmin,20px);
+      background:
+        radial-gradient(circle at 50% 0,rgba(114,247,255,.14),transparent 38%),
+        linear-gradient(180deg,rgba(11,31,73,.94),rgba(3,7,25,.96));
+      box-shadow:0 26px 80px rgba(0,0,0,.72),inset 0 0 40px rgba(114,247,255,.09);
+      text-align:center;
+      display:flex;
+      flex-direction:column;
+      align-items:center;
+      gap:clamp(5px,1.1vmin,10px);
+    }
+
+    .coverGrid{display:block;width:100%;}
+    .coverGrid > div:first-child{display:flex;flex-direction:column;align-items:center;gap:clamp(5px,1.1vmin,10px);}
+    .coverArt{display:none;}
+
+    .coverBadge{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      gap:8px;
+      margin:0;
+      padding:5px 10px;
+      border-radius:999px;
+      background:rgba(114,247,255,.13);
+      border:1px solid rgba(114,247,255,.42);
+      color:#c8fbff;
+      font-weight:1000;
+      font-size:clamp(11px,1.8vmin,14px);
+    }
+
+    .coverTitle{
+      margin:0;
+      max-width:12.5em;
+      font-size:clamp(21px,5.4vmin,44px);
+      line-height:1;
+      color:#eaffff;
+      text-shadow:0 4px 0 #092039,0 0 22px rgba(114,247,255,.36);
+      font-weight:1000;
+    }
+
+    .coverSubtitle{
+      margin:0;
+      max-width:650px;
+      color:#c7f9ff;
+      font-size:clamp(12px,2vmin,16px);
+      line-height:1.18;
+      font-weight:800;
+    }
+
+    .coverStory{
+      margin:0;
+      width:min(650px,100%);
+      text-align:left;
+      background:rgba(0,0,0,.26);
+      border:1px solid rgba(114,247,255,.28);
+      border-radius:22px;
+      padding:clamp(7px,1.3vmin,11px) clamp(8px,1.7vmin,14px);
+      color:#eaffff;
+      line-height:1.22;
+      font-size:clamp(11px,1.75vmin,14px);
+      font-weight:800;
+      max-height:18dvh;
+      overflow:hidden;
+    }
+    .coverStory p{margin:0 0 4px;}
+    .coverStory p:last-child{margin-bottom:0;}
+
+    .howToDetails{width:min(650px,100%);margin:0;}
+    .coverHelpBtn{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      min-height:32px;
+      padding:6px 10px;
+      border-radius:999px;
+      color:#eaffff;
+      background:linear-gradient(180deg,rgba(20,48,92,.96),rgba(6,12,35,.96));
+      border:1px solid rgba(114,247,255,.42);
+      box-shadow:0 5px 0 #081228,0 12px 22px rgba(0,0,0,.22);
+      font-size:12px;
+      font-weight:1000;
+      cursor:pointer;
+      touch-action:manipulation;
+    }
+    .howPanel{
+      width:min(650px,100%);
+      margin:0 auto;
+      padding:7px 9px;
+      border-radius:16px;
+      background:rgba(0,0,0,.24);
+      border:1px solid rgba(114,247,255,.28);
+      color:#eaffff;
+      font-size:11px;
+      line-height:1.2;
+      font-weight:850;
+      text-align:left;
+      max-height:20dvh;
+      overflow:auto;
+      touch-action:pan-y;
+    }
+
+    .missionGrid{
+      display:grid;
+      width:min(650px,100%);
+      margin:0;
+      grid-template-columns:repeat(4,minmax(0,1fr));
+      gap:5px;
+    }
+    .missionItem{
+      border-radius:16px;
+      padding:5px 4px;
+      background:rgba(255,255,255,.08);
+      border:1px solid rgba(114,247,255,.24);
+      color:#eaffff;
+      font-weight:1000;
+      font-size:clamp(10px,1.7vmin,12px);
+      line-height:1.08;
+    }
+    .missionItem .big{
+      display:block;
+      font-size:clamp(16px,3.4vmin,24px);
+      margin-bottom:0;
+    }
+
+    .coverActions{
+      width:100%;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      gap:clamp(8px,1.6vmin,10px);
+      flex-wrap:wrap;
+      margin:0;
+    }
+
+    .coverBtn{
+      min-height:clamp(38px,6.4vmin,48px);
+      padding:8px 14px;
+      font-size:clamp(13px,2.1vmin,17px);
+    }
+
+    .dialogueOverlay{
+      position:fixed;
+      inset:0;
+      z-index:58;
+      display:none;
+      background:transparent;
+      pointer-events:none;
+    }
+
+    .dialogueCard{
+      position:fixed;
+      left:50%;
+      top:72%;
+      transform:translateX(-50%);
+      width:min(1180px,calc(100vw - 24px));
+      max-width:calc(100vw - 24px);
+      min-height:46px;
+      height:auto;
+      padding:8px 12px;
+      border-radius:20px;
+      border:2px solid rgba(255,227,109,.82);
+      background:linear-gradient(180deg,rgba(9,24,58,.94),rgba(4,9,27,.94));
+      box-shadow:0 8px 22px rgba(0,0,0,.45),0 0 16px rgba(255,227,109,.16),inset 0 0 18px rgba(114,247,255,.06);
+      pointer-events:auto;
+      display:flex;
+      align-items:center;
+      gap:10px;
+      white-space:normal;
+      animation:dialoguePopSmall .16s ease-out;
+      text-align:left;
+    }
+    @keyframes dialoguePopSmall{
+      from{opacity:0;transform:translateX(-50%) translateY(8px) scale(.98)}
+      to{opacity:1;transform:translateX(-50%) translateY(0) scale(1)}
+    }
+
+    .speakerRow{
+      margin:0;
+      display:flex;
+      align-items:center;
+      justify-content:flex-start;
+      gap:6px;
+      flex:0 0 auto;
+      align-self:center;
+    }
+
+    .speakerDot{
+      width:28px;
+      height:28px;
+      border-radius:50%;
+      display:grid;
+      place-items:center;
+      background:linear-gradient(180deg,#ffd7b0,#ff8a53);
+      box-shadow:0 0 14px rgba(255,227,109,.22);
+      font-size:15px;
+    }
+
+    .speakerName{
+      display:inline-flex;
+      align-items:center;
+      min-height:28px;
+      padding:5px 10px;
+      border-radius:999px;
+      font-size:13px;
+      white-space:nowrap;
+      font-weight:1000;
+      box-shadow:0 0 14px rgba(255,227,109,.22);
+      background:linear-gradient(180deg,#bffbff,#72f7ff);
+      color:#06142b;
+    }
+    .speakerName.finn{
+      background:linear-gradient(180deg,#ffd7b0,#ff8a53);
+      color:#321407;
+    }
+    .speakerName.max{
+      background:linear-gradient(180deg,#bffbff,#72f7ff);
+      color:#06142b;
+    }
+
+    .dialogueText{
+      flex:1 1 auto;
+      min-width:0;
+      min-height:0;
+      color:#f3feff;
+      font-size:clamp(13px,1.55vw,17px);
+      line-height:1.25;
+      font-weight:1000;
+      text-shadow:0 1px 0 rgba(0,0,0,.35);
+      white-space:normal;
+      overflow:visible;
+      text-overflow:clip;
+      padding:0 4px;
+    }
+
+    .partReward{
+      flex:0 0 auto;
+      margin:0;
+      padding:6px 10px;
+      border-radius:999px;
+      background:rgba(101,255,157,.14);
+      border:1px solid rgba(101,255,157,.55);
+      color:#d8ffe8;
+      font-size:12px;
+      font-weight:1000;
+      white-space:nowrap;
+    }
+
+    .dialogueActions{
+      margin:0 0 0 4px;
+      display:flex;
+      justify-content:flex-end;
+      gap:6px;
+      flex:0 0 auto;
+      align-self:center;
+    }
+    #dialogueNextBtn{display:none!important;}
+
+    .dialogueActions button{
+      min-height:30px;
+      padding:5px 10px;
+      font-size:12px;
+      border-radius:999px;
+      white-space:nowrap;
+    }
+
+    .endCard{
+      background:
+        radial-gradient(circle at 50% 52%,rgba(114,247,255,.16),transparent 35%),
+        rgba(0,0,0,.78);
+      backdrop-filter:blur(5px);
+    }
+    .endInner{
+      width:min(760px,100%);
+      border:3px solid rgba(114,247,255,.75);
+      border-radius:28px;
+      padding:22px;
+      text-align:center;
+      background:linear-gradient(180deg,rgba(8,29,72,.97),rgba(3,7,26,.98));
+      box-shadow:0 22px 70px rgba(0,0,0,.7),inset 0 0 35px rgba(114,247,255,.10);
+    }
+
+    @media(max-width:980px){
+      .missionBox{display:none;}
+    }
+
+    @media(max-width:760px){
+      .topHud{gap:6px;padding:8px 9px;}
+      .brandCard{width:100%;text-align:center;}
+      .brandCard h1{white-space:normal;line-height:1.1;}
+      .hudButtons{width:100%;justify-content:center;}
+      .miniBtn{font-size:11px;padding:6px 8px;min-height:34px;}
+
+      .dialogueCard{
+        width:calc(100vw - 10px);
+        max-width:calc(100vw - 10px);
+        padding:7px 8px;
+        gap:7px;
+        border-radius:16px;
+        align-items:flex-start;
+        top:68%;
+      }
+      .speakerRow,.dialogueActions{align-self:flex-start;}
+      .dialogueText{font-size:12px;line-height:1.2;padding-top:4px;}
+      .speakerName{font-size:11px;padding:4px 7px;min-height:26px;}
+      .speakerDot{width:24px;height:24px;font-size:13px;}
+      .dialogueActions button{font-size:11px;min-height:28px;padding:4px 7px;}
+      .partReward{font-size:10px;padding:5px 7px;}
+    }
+
+    @media(max-width:520px){
+      .coverCard{gap:5px;padding:9px 8px;}
+      .coverActions{gap:6px;}
+      .coverBtn{flex:1 1 130px;min-height:38px;padding:7px 8px;}
+      .coverStory{max-height:14dvh;}
+      .missionGrid{grid-template-columns:repeat(2,minmax(0,1fr));}
+      .dialogueCard{gap:5px;padding:6px;}
+      .dialogueText{font-size:11px;line-height:1.18;}
+      .speakerName{font-size:10px;padding:4px 6px;}
+    }
+
+    @media(max-height:620px){
+      .coverBadge{display:none;}
+      .coverStory{display:none;}
+      .missionItem .big{display:none;}
+      .howToDetails{display:none;}
+      .coverCard{justify-content:center;}
+    }
+    @media(max-height:460px){
+      .missionGrid{display:none;}
+      .coverTitle{font-size:clamp(18px,8vh,32px);}
+      .coverSubtitle{font-size:11px;}
+    }
+
   </style>
 </head>
 <body>
@@ -199,8 +688,8 @@
 
   <div class="topHud">
     <div class="brandCard">
-      <h1>Uncle Joe and Adding of Like Fractions</h1>
-      <p id="hudText">Mission: reach the rocket launcher, pass the addition test, and save the planet.</p>
+      <h1>Space Max and Adding Like Fractions</h1>
+      <p id="hudText">Mission: reach Finn’s refueler, pass the Adding Like Fractions test, and fill the empty tank.</p>
     </div>
     <div class="hudButtons">
       <button id="howBtnTop" class="miniBtn">How to play</button>
@@ -211,9 +700,9 @@
 
   <div id="missionBox" class="missionBox">
     <strong id="missionTitle">Mission Objective</strong>
-    <span id="missionText">Walk Uncle Joe to the launch bay and rocket launcher. Then activate the console.</span>
+    <span id="missionText">Walk Space Max to Finn’s refueling machine. The tank is empty, so activate the quiz console to start refueling.</span>
     <div class="progressWrap"><div id="distanceFill" class="progressFill"></div></div>
-    <div id="promptPill" class="promptPill"><button id="activateBtn">Activate Launcher</button><span>or press E</span></div>
+    <div id="promptPill" class="promptPill"><button id="activateBtn">Activate Refueling</button><span>or press E</span></div>
   </div>
 
   <div id="teacherPanel" class="teacherPanel">
@@ -239,37 +728,59 @@
 
   <div id="coverOverlay" class="screenOverlay">
     <div class="coverCard">
-      <div class="coverGrid">
-        <div>
-          <h2>Asteroid Alert!<span>Save the Planet</span></h2>
-          <p>An asteroid is racing towards the planet. Uncle Joe must reach the rocket launcher and add like fractions correctly before the defence rocket can launch.</p>
-          <p><strong>Math focus:</strong> Like fractions have the same denominator. Compare the numerators.</p>
-          <div class="coverActions">
-            <button id="startBtn" class="primaryBtn">Start Mission</button>
-            <button id="howBtnCover" class="secondaryBtn">How to play</button>
-          </div>
-          <div id="howPanel" class="howPanel">
-            <ol>
-              <li>Watch the asteroid warning scene.</li>
-              <li>Use WASD, arrow keys, or the mobile buttons to walk Uncle Joe to the launcher.</li>
-              <li>Complete the Adding of Like Fractions Test to activate the rocket.</li>
-              <li>After success, watch Uncle Joe press the buttons, launch the rocket, and destroy the asteroid.</li>
-            </ol>
-          </div>
+      <div class="coverBadge">🚀 Space Chamber Mission</div>
+      <h1 class="coverTitle">Space Max and Adding Like Fractions</h1>
+      <p class="coverSubtitle">Help Finn The Frog refuel her empty rocket by solving adding-like-fractions questions.</p>
+
+      <div class="coverStory compactStory">
+        <p>Space Max lands on a new planet and sees Finn The Frog beside her spaceship.</p>
+        <p>Finn is anxious because the fuel tank is empty. The refueling machine is locked by Adding Like Fractions questions.</p>
+        <p>If Space Max helps her refill the tank, Finn will give him the <b>Left Wing Stabiliser</b> for his rocket back to Earth.</p>
+      </div>
+
+      <div class="howToDetails">
+        <button id="howBtnCover" class="coverHelpBtn" type="button">How to play</button>
+        <div id="howPanel" class="howPanel" style="display:none;">
+          <p><b>Move:</b> Use WASD / arrow keys, or the on-screen buttons on mobile.</p>
+          <p><b>Mission rule:</b> Complete the Adding Like Fractions Test in one sitting to unlock the refueling machine.</p>
+          <p><b>Like fraction hint:</b> When denominators are the same, add the numerators and keep the denominator.</p>
         </div>
-        <div class="coverArt" aria-hidden="true">
-          <div class="coverAsteroid"></div>
-          <div class="coverLauncher"><div class="tube"></div><div class="base"></div></div>
-          <div class="coverPlanet"></div>
-          <div class="coverJoe"><div class="head"></div><div class="body"></div><div class="leg1"></div><div class="leg2"></div></div>
-        </div>
+      </div>
+
+      <div class="missionGrid">
+        <div class="missionItem"><span class="big">🐸</span>Meet Finn</div>
+        <div class="missionItem"><span class="big">⛽</span>Empty tank</div>
+        <div class="missionItem"><span class="big">🧮</span>Add fractions</div>
+        <div class="missionItem"><span class="big">🪽</span>Get Left Wing Stabiliser</div>
+      </div>
+
+      <div class="coverActions">
+        <button id="startBtn" class="coverBtn" type="button">Start Mission</button>
+        <button id="goConsoleBtn" class="coverBtn secondaryBtn" type="button">Go Straight to Refueling Machine</button>
       </div>
     </div>
   </div>
 
+  <div id="dialogueOverlay" class="dialogueOverlay" aria-live="polite">
+    <div class="dialogueCard">
+      <div class="speakerRow">
+        <div id="speakerDot" class="speakerDot">🐸</div>
+        <div id="speakerName" class="speakerName">Finn</div>
+      </div>
+      <div id="dialogueText" class="dialogueText"></div>
+      <div id="rewardLine" class="partReward" style="display:none;">Rocket Part: Left Wing Stabiliser</div>
+      <div class="dialogueActions">
+        <button id="dialogueReplayVoiceBtn" type="button">🔊 Repeat</button>
+        <button id="dialogueSkipBtn" type="button">Skip</button>
+        <button id="dialogueNextBtn" type="button">Next ▶</button>
+      </div>
+    </div>
+  </div>
+
+
   <div id="quizOverlay" class="quizOverlay">
     <div class="quizFrameWrap">
-      <iframe id="quizFrame" class="quizFrame" title="Adding of Like Fractions Practice and Test"></iframe>
+      <iframe id="quizFrame" class="quizFrame" title="Adding Like Fractions Practice and Test"></iframe>
       <button id="outerCheatSolveBtn" class="quizFrameCheat">Cheat Solve</button>
       <button id="closeQuizBtn" class="quizFrameClose">Back to chamber</button>
     </div>
@@ -277,16 +788,16 @@
 
   <div id="launchReadyOverlay" class="launchReadyOverlay">
     <div class="launchReadyCard">
-      <h2>Launch Button Ready</h2>
-      <p>Uncle Joe completed the test with all answers correct in one sitting. Press the launch button to fire the rocket and destroy the asteroid.</p>
-      <button id="launchRocketBtn" class="launchButton">🚀 LAUNCH ROCKET</button>
+      <h2>Refueling Button Ready</h2>
+      <p>Space Max completed the test in one sitting. Press the refueling button to fill Finn’s empty tank.</p>
+      <button id="launchRocketBtn" class="launchButton">🚀 REFUEL ROCKET</button>
     </div>
   </div>
 
   <div id="cinematicOverlay" class="cinematicOverlay">
     <div class="cinematicFrame">
       <video id="cinVideo" class="cinVideo" playsinline preload="metadata"></video>
-      <div id="videoPlayFallback" class="videoPlayFallback"><div><button id="manualVideoPlayBtn">Tap to play opening video</button><span>If your browser blocks auto-play, tap here once.</span></div></div>
+      <div id="videoPlayFallback" class="videoPlayFallback"><div><button id="manualVideoPlayBtn">Tap to play video with sound</button><span>If your browser blocks sound, tap here once.</span></div></div>
       <div id="cinScene" class="scene"></div>
       <button id="skipBtn" class="skipBtn">Skip</button>
     </div>
@@ -294,9 +805,9 @@
 
   <div id="endCard" class="endCard">
     <div class="endInner">
-      <h2>Planet Saved!</h2>
-      <div class="badge">Rocket Defence Mission Complete</div>
-      <p>Uncle Joe added the like fractions correctly, activated the launcher, and destroyed the asteroid before impact.</p>
+      <h2>Rocket Part Collected!</h2>
+      <div class="badge">Rocket Refueling Mission Complete • Left Wing Stabiliser Found</div>
+      <p>Space Max filled Finn’s empty tank by answering Adding Like Fractions questions. Finn thanked him, gave him the Left Wing Stabiliser, and flew away in her refueled spaceship.</p>
       <button id="playAgainBtn" class="primaryBtn">Play Again</button>
     </div>
   </div>
@@ -306,43 +817,50 @@
 (() => {
   // Paste your own video links here. Leave blank to use the built-in animated mission scenes.
   const VIDEO_URLS = {
-    introAsteroid: "https://github.com/limkimsze-maker/P2-Uncle-Joe-and-Comparing-of-Like-Fractions/raw/e45d2c68dea816def9865475ea4669f73716189d/57786-486749488_medium.mp4",
-    joePressingButtons: "https://github.com/limkimsze-maker/P2-Uncle-Joe-and-Comparing-of-Like-Fractions/raw/674006cf8c6bde827f88c00754e5af08a93cb550/press%20button.mp4",
-    rocketLaunching: "https://github.com/limkimsze-maker/P2-Uncle-Joe-and-Comparing-of-Like-Fractions/raw/674006cf8c6bde827f88c00754e5af08a93cb550/rocket%20launch.mp4",
-    asteroidExplosion: "https://github.com/limkimsze-maker/P2-Uncle-Joe-and-Comparing-of-Like-Fractions/raw/674006cf8c6bde827f88c00754e5af08a93cb550/explosion.mp4"
+    introAsteroid: "https://github.com/limkimsze-maker/P2-Uncle-Joe-and-Adding-of-Like-Fractions/raw/0a462e0ff3312ecc2a127090cce78d2137e5c2f1/low%20battery.mp4",
+    joePressingButtons: "https://github.com/limkimsze-maker/P2-Uncle-Joe-and-Adding-of-Like-Fractions/raw/0a462e0ff3312ecc2a127090cce78d2137e5c2f1/full%20battery.mp4",
+    rocketLaunching: "https://github.com/limkimsze-maker/P2-Uncle-Joe-and-Adding-of-Like-Fractions/raw/0a462e0ff3312ecc2a127090cce78d2137e5c2f1/145735-787427533_medium.mp4",
+    asteroidExplosion: "https://github.com/limkimsze-maker/P2-Uncle-Joe-and-Adding-of-Like-Fractions/raw/0a462e0ff3312ecc2a127090cce78d2137e5c2f1/145735-787427533_medium.mp4"
   };
 
   const VIDEO_FALLBACK_URLS = {
     introAsteroid: [
-      "https://github.com/limkimsze-maker/P2-Uncle-Joe-and-Comparing-of-Like-Fractions/raw/e45d2c68dea816def9865475ea4669f73716189d/57786-486749488_medium.mp4",
-      "https://raw.githubusercontent.com/limkimsze-maker/P2-Uncle-Joe-and-Comparing-of-Like-Fractions/e45d2c68dea816def9865475ea4669f73716189d/57786-486749488_medium.mp4",
-      "https://github.com/limkimsze-maker/P2-Uncle-Joe-and-Comparing-of-Like-Fractions/blob/e45d2c68dea816def9865475ea4669f73716189d/57786-486749488_medium.mp4?raw=1"
+      "https://github.com/limkimsze-maker/P2-Uncle-Joe-and-Adding-of-Like-Fractions/raw/0a462e0ff3312ecc2a127090cce78d2137e5c2f1/low%20battery.mp4",
+      "https://raw.githubusercontent.com/limkimsze-maker/P2-Uncle-Joe-and-Adding-of-Like-Fractions/0a462e0ff3312ecc2a127090cce78d2137e5c2f1/low%20battery.mp4",
+      "https://github.com/limkimsze-maker/P2-Uncle-Joe-and-Adding-of-Like-Fractions/blob/0a462e0ff3312ecc2a127090cce78d2137e5c2f1/low%20battery.mp4?raw=1"
     ],
     joePressingButtons: [
-      "https://github.com/limkimsze-maker/P2-Uncle-Joe-and-Comparing-of-Like-Fractions/raw/674006cf8c6bde827f88c00754e5af08a93cb550/press%20button.mp4",
-      "https://raw.githubusercontent.com/limkimsze-maker/P2-Uncle-Joe-and-Comparing-of-Like-Fractions/674006cf8c6bde827f88c00754e5af08a93cb550/press%20button.mp4",
-      "https://github.com/limkimsze-maker/P2-Uncle-Joe-and-Comparing-of-Like-Fractions/blob/674006cf8c6bde827f88c00754e5af08a93cb550/press%20button.mp4?raw=1"
+      "https://github.com/limkimsze-maker/P2-Uncle-Joe-and-Adding-of-Like-Fractions/raw/0a462e0ff3312ecc2a127090cce78d2137e5c2f1/full%20battery.mp4",
+      "https://raw.githubusercontent.com/limkimsze-maker/P2-Uncle-Joe-and-Adding-of-Like-Fractions/0a462e0ff3312ecc2a127090cce78d2137e5c2f1/full%20battery.mp4",
+      "https://github.com/limkimsze-maker/P2-Uncle-Joe-and-Adding-of-Like-Fractions/blob/0a462e0ff3312ecc2a127090cce78d2137e5c2f1/full%20battery.mp4?raw=1"
     ],
     rocketLaunching: [
-      "https://github.com/limkimsze-maker/P2-Uncle-Joe-and-Comparing-of-Like-Fractions/raw/674006cf8c6bde827f88c00754e5af08a93cb550/rocket%20launch.mp4",
-      "https://raw.githubusercontent.com/limkimsze-maker/P2-Uncle-Joe-and-Comparing-of-Like-Fractions/674006cf8c6bde827f88c00754e5af08a93cb550/rocket%20launch.mp4",
-      "https://github.com/limkimsze-maker/P2-Uncle-Joe-and-Comparing-of-Like-Fractions/blob/674006cf8c6bde827f88c00754e5af08a93cb550/rocket%20launch.mp4?raw=1"
+      "https://github.com/limkimsze-maker/P2-Uncle-Joe-and-Adding-of-Like-Fractions/raw/0a462e0ff3312ecc2a127090cce78d2137e5c2f1/145735-787427533_medium.mp4",
+      "https://raw.githubusercontent.com/limkimsze-maker/P2-Uncle-Joe-and-Adding-of-Like-Fractions/0a462e0ff3312ecc2a127090cce78d2137e5c2f1/145735-787427533_medium.mp4",
+      "https://github.com/limkimsze-maker/P2-Uncle-Joe-and-Adding-of-Like-Fractions/blob/0a462e0ff3312ecc2a127090cce78d2137e5c2f1/145735-787427533_medium.mp4?raw=1"
     ],
     asteroidExplosion: [
-      "https://github.com/limkimsze-maker/P2-Uncle-Joe-and-Comparing-of-Like-Fractions/raw/674006cf8c6bde827f88c00754e5af08a93cb550/explosion.mp4",
-      "https://raw.githubusercontent.com/limkimsze-maker/P2-Uncle-Joe-and-Comparing-of-Like-Fractions/674006cf8c6bde827f88c00754e5af08a93cb550/explosion.mp4",
-      "https://github.com/limkimsze-maker/P2-Uncle-Joe-and-Comparing-of-Like-Fractions/blob/674006cf8c6bde827f88c00754e5af08a93cb550/explosion.mp4?raw=1"
+      "https://github.com/limkimsze-maker/P2-Uncle-Joe-and-Adding-of-Like-Fractions/raw/0a462e0ff3312ecc2a127090cce78d2137e5c2f1/145735-787427533_medium.mp4",
+      "https://raw.githubusercontent.com/limkimsze-maker/P2-Uncle-Joe-and-Adding-of-Like-Fractions/0a462e0ff3312ecc2a127090cce78d2137e5c2f1/145735-787427533_medium.mp4",
+      "https://github.com/limkimsze-maker/P2-Uncle-Joe-and-Adding-of-Like-Fractions/blob/0a462e0ff3312ecc2a127090cce78d2137e5c2f1/145735-787427533_medium.mp4?raw=1"
     ]
   };
 
   const AUDIO_URLS = {
-    introAsteroid: "https://raw.githubusercontent.com/limkimsze-maker/P2-Uncle-Joe-and-Comparing-of-Like-Fractions/d824263b80f8612e8dcb9a7fac439e758d872356/lazychillzone-deep-bass-horror-braam-trailer-228762.mp3",
-    joePressingButtons: "https://raw.githubusercontent.com/limkimsze-maker/P2-Uncle-Joe-and-Comparing-of-Like-Fractions/674006cf8c6bde827f88c00754e5af08a93cb550/virtual_vibes-keyboard-typing-fast-office-hd-377434.mp3",
-    rocketLaunching: "https://raw.githubusercontent.com/limkimsze-maker/P2-Uncle-Joe-and-Comparing-of-Like-Fractions/674006cf8c6bde827f88c00754e5af08a93cb550/freesound_community-rocket-launch-106663.mp3",
-    asteroidExplosion: "https://raw.githubusercontent.com/limkimsze-maker/P2-Uncle-Joe-and-Comparing-of-Like-Fractions/674006cf8c6bde827f88c00754e5af08a93cb550/daviddumaisaudio-sci-fi-explosion-09-190268.mp3"
+    // Sound paired with the low-battery opening video.
+    introAsteroid: "https://raw.githubusercontent.com/limkimsze-maker/P2-Uncle-Joe-and-Adding-of-Like-Fractions/2234dd606f44a51f59aa77c87efabc729905d2ac/lucadialessandro-alert-sound-230091.mp3",
+    // Sound paired with the full-battery video after the quiz is completed.
+    joePressingButtons: "https://raw.githubusercontent.com/limkimsze-maker/P2-Uncle-Joe-and-Adding-of-Like-Fractions/2234dd606f44a51f59aa77c87efabc729905d2ac/snorcon-high-battery-charge-421821.mp3",
+    // Spaceship whoosh sound paired with Finn flying away.
+    rocketLaunching: "https://raw.githubusercontent.com/limkimsze-maker/P2-Uncle-Joe-and-Adding-of-Like-Fractions/be4fb1034a3ab098777ba51a03890ec6c49cd11e/dragon-studio-spaceship-whoosh-video-game-sound-320171.mp3",
+    asteroidExplosion: ""
   };
 
   const AMBIENCE_URL = "https://raw.githubusercontent.com/limkimsze-maker/P2-Uncle-Joe-and-Comparing-of-Like-Fractions/e45d2c68dea816def9865475ea4669f73716189d/placidplace-spaceship-ambience-with-effects-21420.mp3";
+
+  const FINN_MODEL_URL = "https://raw.githubusercontent.com/limkimsze-maker/P2-Uncle-Joe-and-Adding-of-Like-Fractions/8d5c34f9d9984ecc32ef73a57b696a1b0df9d5ec/Astronaut_FinnTheFrog.gltf";
+  const FINN_SHIP_URL = "https://raw.githubusercontent.com/limkimsze-maker/P2-Uncle-Joe-and-Adding-of-Like-Fractions/8d5c34f9d9984ecc32ef73a57b696a1b0df9d5ec/Spaceship_FinnTheFrog.gltf";
+
 
   const QUIZ_SRC_B64 = "PCFET0NUWVBFIGh0bWw+CjxodG1sIGxhbmc9ImVuIj4KPGhlYWQ+CjxsaW5rIHJlbD0iaWNvbiIgaHJlZj0iLi9raW1zemVfc2hhcnAxNi5pY28/dj0yMDI2MDExMWEiIHNpemVzPSJhbnkiPgo8bGluayByZWw9InNob3J0Y3V0IGljb24iIGhyZWY9Ii4va2ltc3plX3NoYXJwMTYuaWNvP3Y9MjAyNjAxMTFhIj4KPG1ldGEgY2hhcnNldD0idXRmLTgiIC8+CjxtZXRhIG5hbWU9InZpZXdwb3J0IiBjb250ZW50PSJ3aWR0aD1kZXZpY2Utd2lkdGgsIGluaXRpYWwtc2NhbGU9MSIgLz4KPHRpdGxlPkFkZGluZyBvZiBMaWtlIEZyYWN0aW9ucyDigJQgUHJhY3RpY2UgYW5kIFRlc3Q8L3RpdGxlPgo8c3R5bGU+CiAgOnJvb3R7CiAgICAtLWluazojMGYxNzJhOwogICAgLS1tdXRlZDojNDc1NTY5OwogICAgLS1saW5lOiNkYmU1ZjA7CiAgICAtLWJsdWU6IzliYmNlNjsKICAgIC0tcGluazojZjdjMGQxOwogICAgLS1zdHJva2U6IzExMTgyNzsKICAgIC0tZ29vZDojMTZhMzRhOwogICAgLS1iYWQ6I2RjMjYyNjsKICAgIC0tcHVycGxlOiM3YzNhZWQ7CiAgICAtLXB1cnBsZURhcms6IzViMjFiNjsKICAgIC0tY3JlYW06I2ZmZmVmNTsKICAgIC0tb3JhbmdlOiNmZWQ3YWE7CiAgICAtLW9yYW5nZVRleHQ6IzlhMzQxMjsKICB9CgogICp7Ym94LXNpemluZzpib3JkZXItYm94fQogIGh0bWwsYm9keXtoZWlnaHQ6MTAwJTttYXgtd2lkdGg6MTAwJTtvdmVyZmxvdzpoaWRkZW59CiAgYm9keXsKICAgIG1hcmdpbjowOwogICAgbWluLWhlaWdodDoxMDBkdmg7CiAgICBkaXNwbGF5OmdyaWQ7CiAgICBncmlkLXRlbXBsYXRlLXJvd3M6YXV0byAxZnIgYXV0bzsKICAgIGZvbnQ6MTdweC8xLjUgc3lzdGVtLXVpLC1hcHBsZS1zeXN0ZW0sU2Vnb2UgVUksUm9ib3RvLEFyaWFsOwogICAgY29sb3I6dmFyKC0taW5rKTsKICAgIGJhY2tncm91bmQ6CiAgICAgIHJhZGlhbC1ncmFkaWVudChjaXJjbGUgYXQgMTIlIDglLCByZ2JhKDEyNCw1OCwyMzcsLjA5KSwgdHJhbnNwYXJlbnQgMzAlKSwKICAgICAgcmFkaWFsLWdyYWRpZW50KGNpcmNsZSBhdCA4OCUgMTIlLCByZ2JhKDI1MSwxOTEsMzYsLjEwKSwgdHJhbnNwYXJlbnQgMjglKSwKICAgICAgbGluZWFyLWdyYWRpZW50KDE4MGRlZywjZmZmN2VkIDAlLCNmZGZhZjUgMzglLCNlZWY2ZmYgMTAwJSk7CiAgfQoKICBoZWFkZXJ7CiAgICB3aWR0aDoxMDAlOwogICAgbWF4LXdpZHRoOjk4MHB4OwogICAgbWFyZ2luOmNsYW1wKDZweCwxLjR2aCwxNHB4KSBhdXRvIDA7CiAgICBwYWRkaW5nOjAgY2xhbXAoMTBweCwyLjJ2dywxOHB4KTsKICB9CiAgaDF7bWFyZ2luOjAgMCAycHg7Zm9udC1zaXplOmNsYW1wKDIwcHgsMy4zdncsMzBweCk7bGV0dGVyLXNwYWNpbmc6LS4wM2VtO2xpbmUtaGVpZ2h0OjEuMX0KICAubm90ZXtjb2xvcjojMzM0MTU1O21hcmdpbjowIDAgN3B4O21heC13aWR0aDo5MzBweDtmb250LXNpemU6Y2xhbXAoMTJweCwxLjY1dncsMTVweCk7bGluZS1oZWlnaHQ6MS4yOH0KICAubWV0YXtkaXNwbGF5OmZsZXg7Z2FwOjhweDthbGlnbi1pdGVtczpjZW50ZXI7Zm9udC13ZWlnaHQ6OTUwO2ZsZXgtd3JhcDp3cmFwO2ZvbnQtc2l6ZTpjbGFtcCgxMnB4LDEuN3Z3LDE0cHgpfQogICNwaGFzZVBpbGwsI3Byb2dyZXNzLCNzY29yZUJveHsKICAgIHBhZGRpbmc6NHB4IDEycHg7CiAgICBib3JkZXItcmFkaXVzOjk5OXB4OwogICAgYmFja2dyb3VuZDojZmZmZmZmOwogICAgYm9yZGVyOjFweCBzb2xpZCB2YXIoLS1saW5lKTsKICAgIGJveC1zaGFkb3c6MCA2cHggMTRweCByZ2JhKDE1LDIzLDQyLC4wNSk7CiAgfQogICNwaGFzZVBpbGx7Y29sb3I6dmFyKC0tcHVycGxlRGFyayk7YmFja2dyb3VuZDojZmZmZWY1O2JvcmRlci1jb2xvcjojZGRkNmZlfQoKICBtYWluewogICAgd2lkdGg6MTAwJTsKICAgIGhlaWdodDoxMDAlOwogICAgbWluLWhlaWdodDowOwogICAgZGlzcGxheTpmbGV4OwogICAgbWF4LXdpZHRoOjk4MHB4OwogICAgbWFyZ2luOmNsYW1wKDVweCwxLjJ2aCwxMnB4KSBhdXRvIDA7CiAgICBwYWRkaW5nOjAgY2xhbXAoOHB4LDEuOHZ3LDE4cHgpOwogIH0KICAuY2FyZHsKICAgIHdpZHRoOjEwMCU7CiAgICBoZWlnaHQ6MTAwJTsKICAgIG1pbi1oZWlnaHQ6MDsKICAgIG92ZXJmbG93OmhpZGRlbjsKICAgIGJhY2tncm91bmQ6cmdiYSgyNTUsMjU1LDI1NSwuOTcpOwogICAgYm9yZGVyOjJweCBzb2xpZCB2YXIoLS1saW5lKTsKICAgIGJvcmRlci1yYWRpdXM6Y2xhbXAoMTZweCwzdncsMjRweCk7CiAgICBwYWRkaW5nOmNsYW1wKDEycHgsMi4ydmgsMjRweCkgY2xhbXAoMTBweCwyLjJ2dywyOHB4KSBjbGFtcCgxMHB4LDEuNHZoLDE4cHgpOwogICAgYm94LXNoYWRvdzowIDE4cHggNDJweCByZ2JhKDE1LDIzLDQyLC4wOCk7CiAgICBkaXNwbGF5OmZsZXg7CiAgICBmbGV4LWRpcmVjdGlvbjpjb2x1bW47CiAgfQoKICAuc3RhZ2VMYWJlbHsKICAgIGFsaWduLXNlbGY6Y2VudGVyOwogICAgZGlzcGxheTppbmxpbmUtZmxleDsKICAgIGFsaWduLWl0ZW1zOmNlbnRlcjsKICAgIGdhcDo4cHg7CiAgICBwYWRkaW5nOjVweCAxMnB4OwogICAgYm9yZGVyOjFweCBzb2xpZCB2YXIoLS1saW5lKTsKICAgIGJvcmRlci1yYWRpdXM6OTk5cHg7CiAgICBiYWNrZ3JvdW5kOiNmZmY7CiAgICBjb2xvcjp2YXIoLS1tdXRlZCk7CiAgICBmb250LXNpemU6Y2xhbXAoMTFweCwxLjZ2dywxM3B4KTsKICAgIGZvbnQtd2VpZ2h0Ojk1MDsKICAgIGJveC1zaGFkb3c6MCA2cHggMTRweCByZ2JhKDE1LDIzLDQyLC4wNCk7CiAgfQogIC5zdGFnZURvdHt3aWR0aDo5cHg7aGVpZ2h0OjlweDtib3JkZXItcmFkaXVzOjUwJTtiYWNrZ3JvdW5kOnZhcigtLXB1cnBsZSl9CgogIC5lcXVhdGlvbkRlY2t7CiAgICB3aWR0aDoxMDAlOwogICAgbWF4LXdpZHRoOjg2MHB4OwogICAgbWFyZ2luOmNsYW1wKDI4cHgsN3ZoLDc2cHgpIGF1dG8gMDsKICB9CiAgLmVxdWF0aW9uUm93ewogICAgZGlzcGxheTpmbGV4OwogICAganVzdGlmeS1jb250ZW50OmNlbnRlcjsKICAgIGFsaWduLWl0ZW1zOmZsZXgtZW5kOwogICAgZ2FwOmNsYW1wKDZweCwydncsMThweCk7CiAgICBmbGV4LXdyYXA6bm93cmFwOwogICAgd2lkdGg6MTAwJTsKICAgIG1pbi1oZWlnaHQ6Y2xhbXAoMTAwcHgsMjF2aCwxNDVweCk7CiAgfQogIC5lcXVhdGlvbkxpbmV7CiAgICB3aWR0aDptaW4oNzYwcHgsMTAwJSk7CiAgICBoZWlnaHQ6MDsKICAgIGJvcmRlci1ib3R0b206Y2xhbXAoNHB4LC44dncsNnB4KSBzb2xpZCB2YXIoLS1wdXJwbGUpOwogICAgYm9yZGVyLXJhZGl1czo5OTlweDsKICAgIG1hcmdpbjpjbGFtcCg4cHgsMS44dmgsMTNweCkgYXV0byAwOwogICAgYm94LXNoYWRvdzowIDNweCAwIHJnYmEoMTI0LDU4LDIzNywuMTApOwogIH0KCiAgLml0ZW1Db2x7CiAgICBkaXNwbGF5OmZsZXg7CiAgICBmbGV4LWRpcmVjdGlvbjpjb2x1bW47CiAgICBhbGlnbi1pdGVtczpjZW50ZXI7CiAgICBqdXN0aWZ5LWNvbnRlbnQ6ZmxleC1lbmQ7CiAgICBnYXA6NnB4OwogICAgbWluLWhlaWdodDpjbGFtcCg4OHB4LDE4dmgsMTMwcHgpOwogIH0KICAuc3ltYm9sewogICAgYWxpZ24tc2VsZjpmbGV4LWVuZDsKICAgIHBhZGRpbmctYm90dG9tOmNsYW1wKDIwcHgsNHZoLDI5cHgpOwogICAgZm9udC1zaXplOmNsYW1wKDI0cHgsNC44dncsMzJweCk7CiAgICBsaW5lLWhlaWdodDoxOwogICAgZm9udC13ZWlnaHQ6MTAwMDsKICAgIGNvbG9yOiMwNjEyMmE7CiAgICB0ZXh0LWFsaWduOmNlbnRlcjsKICB9CgogIC5mcmFjewogICAgZGlzcGxheTppbmxpbmUtZ3JpZDsKICAgIGdyaWQtdGVtcGxhdGUtcm93czphdXRvIGF1dG87CiAgICBqdXN0aWZ5LWl0ZW1zOmNlbnRlcjsKICAgIG1pbi13aWR0aDpjbGFtcCg1NHB4LDEydncsODZweCk7CiAgICBwYWRkaW5nOmNsYW1wKDVweCwxdncsOHB4KSBjbGFtcCg3cHgsMS40dncsMTJweCk7CiAgICBib3JkZXItcmFkaXVzOjE0cHg7CiAgICBiYWNrZ3JvdW5kOnZhcigtLWNyZWFtKTsKICAgIGJveC1zaGFkb3c6MCAxcHggMCByZ2JhKDE1LDIzLDQyLC4wMyk7CiAgfQogIC5mcmFjIC5udW17Ym9yZGVyLWJvdHRvbTozcHggc29saWQgdmFyKC0taW5rKTt3aWR0aDoxMDAlO3RleHQtYWxpZ246Y2VudGVyO2ZvbnQtd2VpZ2h0OjEwMDA7Zm9udC1zaXplOmNsYW1wKDE4cHgsMy44dncsMjNweCk7bGluZS1oZWlnaHQ6MS4yNX0KICAuZnJhYyAuZGVue3BhZGRpbmctdG9wOjRweDtmb250LXNpemU6Y2xhbXAoMTVweCwzLjJ2dywxOXB4KTtmb250LXdlaWdodDoxMDAwO2xpbmUtaGVpZ2h0OjEuMjV9CgogIC5hbnN3ZXJ7CiAgICBkaXNwbGF5OmlubGluZS1ncmlkOwogICAgZ3JpZC10ZW1wbGF0ZS1yb3dzOmF1dG8gYXV0bzsKICAgIGp1c3RpZnktaXRlbXM6Y2VudGVyOwogICAgbWluLXdpZHRoOmNsYW1wKDcycHgsMTV2dywxMTJweCk7CiAgICBwYWRkaW5nOmNsYW1wKDVweCwxdncsN3B4KSBjbGFtcCg2cHgsMS4zdncsMTBweCk7CiAgICBib3JkZXItcmFkaXVzOjE0cHg7CiAgICBiYWNrZ3JvdW5kOiNmZmY7CiAgICBib3gtc2hhZG93OjAgMTRweCAyMnB4IHJnYmEoMTUsMjMsNDIsLjA2KSwgaW5zZXQgMCAtMnB4IDAgcmdiYSgwLDAsMCwuMDMpOwogIH0KICAuYW5zd2VyIGlucHV0e3dpZHRoOmNsYW1wKDYycHgsMTN2dyw5MnB4KTt0ZXh0LWFsaWduOmNlbnRlcjtmb250LXdlaWdodDoxMDAwO2ZvbnQtc2l6ZTpjbGFtcCgxNnB4LDMuM3Z3LDIwcHgpO3BhZGRpbmc6NnB4IDZweDtib3JkZXItcmFkaXVzOjExcHg7Ym9yZGVyOjJweCBzb2xpZCB2YXIoLS1saW5lKTtvdXRsaW5lOm5vbmU7YmFja2dyb3VuZDojZmZmfQogIC5hbnN3ZXIgaW5wdXQ6Zm9jdXMsLndob2xlQW5zd2VyIGlucHV0OmZvY3Vze2JvcmRlci1jb2xvcjp2YXIoLS1wdXJwbGUpO2JveC1zaGFkb3c6MCAwIDAgNHB4IHJnYmEoMTI0LDU4LDIzNywuMTApfQogIC5hbnN3ZXIgLmxpbmV7d2lkdGg6MTAwJTtib3JkZXItYm90dG9tOjNweCBzb2xpZCB2YXIoLS1pbmspO21hcmdpbjo2cHggMH0KICAuYW5zd2VyIGlucHV0OjpwbGFjZWhvbGRlcntmb250LXNpemU6LjY4ZW07Y29sb3I6IzY0NzQ4YjtvcGFjaXR5Oi45Mn0KCiAgLndob2xlT25seXtkaXNwbGF5Om5vbmV9CiAgLmVxdWF0aW9uUm93Lndob2xlTW9kZSAud2hvbGVPbmx5e2Rpc3BsYXk6ZmxleH0KICAud2hvbGVBbnN3ZXJ7CiAgICBkaXNwbGF5OmZsZXg7CiAgICBhbGlnbi1pdGVtczpjZW50ZXI7CiAgICBqdXN0aWZ5LWNvbnRlbnQ6Y2VudGVyOwogICAgbWluLXdpZHRoOmNsYW1wKDU4cHgsMTF2dyw3OHB4KTsKICAgIHBhZGRpbmc6Y2xhbXAoNXB4LDF2dyw4cHgpIGNsYW1wKDZweCwxLjJ2dywxMHB4KTsKICAgIGJvcmRlci1yYWRpdXM6MTRweDsKICAgIGJhY2tncm91bmQ6I2ZmZjdlZDsKICAgIGJvcmRlcjoycHggc29saWQgdmFyKC0tb3JhbmdlKTsKICAgIGJveC1zaGFkb3c6MCAxNHB4IDI0cHggcmdiYSgyNTEsMTQ2LDYwLC4xMiksIGluc2V0IDAgLTJweCAwIHJnYmEoMCwwLDAsLjAzKTsKICB9CiAgLndob2xlQW5zd2VyIGlucHV0ewogICAgd2lkdGg6Y2xhbXAoNDJweCw5dncsNTRweCk7CiAgICB0ZXh0LWFsaWduOmNlbnRlcjsKICAgIGZvbnQtd2VpZ2h0OjEwMDA7CiAgICBmb250LXNpemU6Y2xhbXAoMThweCwzLjZ2dywyM3B4KTsKICAgIHBhZGRpbmc6NnB4IDVweDsKICAgIGJvcmRlci1yYWRpdXM6MTFweDsKICAgIGJvcmRlcjoycHggc29saWQgdmFyKC0tbGluZSk7CiAgICBiYWNrZ3JvdW5kOiNmZmY7CiAgICBvdXRsaW5lOm5vbmU7CiAgfQogIC53aG9sZVRleHR7CiAgICBtYXJnaW4tdG9wOjVweDsKICAgIHBhZGRpbmc6M3B4IDhweDsKICAgIGJvcmRlci1yYWRpdXM6OTk5cHg7CiAgICBiYWNrZ3JvdW5kOiNmZmY3ZWQ7CiAgICBib3JkZXI6MXB4IHNvbGlkIHZhcigtLW9yYW5nZSk7CiAgICBjb2xvcjp2YXIoLS1vcmFuZ2VUZXh0KTsKICAgIGZvbnQtc2l6ZTpjbGFtcCg5cHgsMS43dncsMTJweCk7CiAgICBsaW5lLWhlaWdodDoxLjE7CiAgICBmb250LXdlaWdodDoxMDAwOwogICAgdGV4dC1hbGlnbjpjZW50ZXI7CiAgICB3aGl0ZS1zcGFjZTpub3dyYXA7CiAgfQoKICAudml6ewogICAgd2lkdGg6MTAwJTsKICAgIG1pbi1oZWlnaHQ6NDRweDsKICAgIGRpc3BsYXk6ZmxleDsKICAgIGFsaWduLWl0ZW1zOmNlbnRlcjsKICAgIGp1c3RpZnktY29udGVudDpjZW50ZXI7CiAgICBtYXJnaW46Y2xhbXAoOHB4LDIuNHZoLDI0cHgpIGF1dG8gMDsKICB9CiAgLnZpei5oaWRkZW57ZGlzcGxheTpub25lfQogIC52aXogc3Zne21heC13aWR0aDptaW4oMTAwJSw0NTJweCk7aGVpZ2h0OmF1dG99CiAgLmNhcmQudGVzdE1vZGUgLmVxdWF0aW9uRGVja3ttYXJnaW4tdG9wOmNsYW1wKDQycHgsMTF2aCwxMDhweCl9CiAgLnN0YXR1c3sKICAgIHdpZHRoOm1pbig3MjBweCwxMDAlKTsKICAgIG1hcmdpbjpjbGFtcCg3cHgsMS44dmgsMTRweCkgYXV0byAwOwogICAgbWluLWhlaWdodDoxLjQ1ZW07CiAgICB0ZXh0LWFsaWduOmNlbnRlcjsKICAgIGZvbnQtd2VpZ2h0OjEwMDA7CiAgICBmb250LXNpemU6Y2xhbXAoMTRweCwyLjN2dywxOHB4KTsKICAgIGxpbmUtaGVpZ2h0OjEuMjU7CiAgfQogIC5va3tjb2xvcjp2YXIoLS1nb29kKX0gLm5ve2NvbG9yOnZhcigtLWJhZCl9IC5pbmZve2NvbG9yOnZhcigtLXB1cnBsZURhcmspfQoKICAuY29udHJvbHN7ZGlzcGxheTpmbGV4O2dhcDoxMnB4O2p1c3RpZnktY29udGVudDpjZW50ZXI7bWFyZ2luLXRvcDphdXRvO3BhZGRpbmctdG9wOmNsYW1wKDEycHgsM3ZoLDI0cHgpO2ZsZXgtd3JhcDp3cmFwfQogIGJ1dHRvbntwYWRkaW5nOjExcHggMThweDtib3JkZXI6bm9uZTtib3JkZXItcmFkaXVzOjE0cHg7YmFja2dyb3VuZDpsaW5lYXItZ3JhZGllbnQoMTgwZGVnLCM4YjVjZjYsIzZkMjhkOSk7Y29sb3I6I2ZmZjtmb250LXdlaWdodDoxMDAwO2JveC1zaGFkb3c6MCAxMHB4IDE4cHggcmdiYSgxMDksNDAsMjE3LC4xOCk7Y3Vyc29yOnBvaW50ZXI7Zm9udC1mYW1pbHk6aW5oZXJpdDtmb250LXNpemU6MTVweH0KICBidXR0b24uc2Vjb25kYXJ5e2JhY2tncm91bmQ6I2ZmZjtjb2xvcjojMGYxNzJhO2JvcmRlcjoycHggc29saWQgdmFyKC0tbGluZSk7Ym94LXNoYWRvdzowIDhweCAxNnB4IHJnYmEoMTUsMjMsNDIsLjA0KX0KICBidXR0b246ZGlzYWJsZWR7b3BhY2l0eTouNTU7Y3Vyc29yOm5vdC1hbGxvd2VkfQoKICAuc3VtbWFyeXtkaXNwbGF5Om5vbmU7bWFyZ2luOjEycHggYXV0byAwO3BhZGRpbmc6MTJweDtib3JkZXI6MnB4IHNvbGlkIHZhcigtLWxpbmUpO2JvcmRlci1yYWRpdXM6MTRweDtiYWNrZ3JvdW5kOiNmZmZlZjU7dGV4dC1hbGlnbjpjZW50ZXI7Zm9udC13ZWlnaHQ6OTAwO2xpbmUtaGVpZ2h0OjEuMzU7d2lkdGg6bWluKDY4MHB4LDEwMCUpfQogIGZvb3RlcnttYXgtd2lkdGg6OTgwcHg7bWFyZ2luOjAgYXV0byBjbGFtcCg2cHgsMS41dmgsMTZweCk7cGFkZGluZzowIDE2cHg7dGV4dC1hbGlnbjpjZW50ZXI7Y29sb3I6IzQ3NTU2OTtmb250LXdlaWdodDo2MDA7Zm9udC1zaXplOmNsYW1wKDExcHgsMS43dncsMTRweCl9CgogIEBtZWRpYSAobWF4LXdpZHRoOjc2MHB4KXsKICAgIC5lcXVhdGlvbkRlY2t7bWFyZ2luLXRvcDpjbGFtcCgyMHB4LDV2aCw1MHB4KX0KICAgIC5lcXVhdGlvblJvd3tnYXA6Y2xhbXAoM3B4LDF2dyw4cHgpO21pbi1oZWlnaHQ6Y2xhbXAoOTZweCwxOXZoLDEyNnB4KX0KICAgIC5pdGVtQ29se2dhcDo0cHg7bWluLWhlaWdodDpjbGFtcCg4NnB4LDE3dmgsMTE2cHgpfQogICAgLnN5bWJvbHtwYWRkaW5nLWJvdHRvbTpjbGFtcCgxOHB4LDR2aCwyNXB4KX0KICAgIC5hbnN3ZXIgLmxpbmUsLmZyYWMgLm51bXtib3JkZXItYm90dG9tLXdpZHRoOjJweH0KICAgIC5jb250cm9sc3tnYXA6OHB4fQogICAgYnV0dG9ue3BhZGRpbmc6OXB4IDEycHg7Zm9udC1zaXplOjEzcHh9CiAgfQoKICBAbWVkaWEgKG1heC13aWR0aDo0NjBweCl7CiAgICAubm90ZXtmb250LXNpemU6MTFweH0KICAgIC5tZXRhe2dhcDo1cHh9CiAgICAjcGhhc2VQaWxsLCNwcm9ncmVzcywjc2NvcmVCb3h7cGFkZGluZzozcHggOHB4fQogICAgLmVxdWF0aW9uUm93e2dhcDoycHh9CiAgICAuZnJhY3ttaW4td2lkdGg6NTJweDtwYWRkaW5nOjVweCA2cHh9CiAgICAuYW5zd2Vye21pbi13aWR0aDo3NHB4O3BhZGRpbmc6NHB4IDVweH0KICAgIC5hbnN3ZXIgaW5wdXR7d2lkdGg6NjRweDtwYWRkaW5nOjVweCA0cHh9CiAgICAuYW5zd2VyIGlucHV0OjpwbGFjZWhvbGRlcntmb250LXNpemU6LjU2ZW19CiAgICAud2hvbGVBbnN3ZXJ7bWluLXdpZHRoOjUycHg7cGFkZGluZzo0cHggNXB4fQogICAgLndob2xlQW5zd2VyIGlucHV0e3dpZHRoOjQycHg7cGFkZGluZzo1cHggNHB4fQogICAgLndob2xlVGV4dHtmb250LXNpemU6OXB4O3BhZGRpbmc6M3B4IDZweH0KICAgIC5jb250cm9scyBidXR0b257ZmxleDoxIDEgMTIwcHh9CiAgfQoKICBAbWVkaWEgKG1heC1oZWlnaHQ6NTYwcHgpewogICAgaDF7Zm9udC1zaXplOjE4cHh9CiAgICAubm90ZXtkaXNwbGF5Om5vbmV9CiAgICAuZXF1YXRpb25EZWNre21hcmdpbi10b3A6OHB4fQogICAgLmVxdWF0aW9uUm93e21pbi1oZWlnaHQ6ODZweH0KICAgIC5pdGVtQ29se21pbi1oZWlnaHQ6ODBweH0KICAgIC52aXp7bWFyZ2luLXRvcDo1cHg7bWluLWhlaWdodDozNHB4fQogICAgLnN0YXR1c3tmb250LXNpemU6MTNweDttYXJnaW4tdG9wOjRweH0KICAgIC5jb250cm9sc3twYWRkaW5nLXRvcDo2cHh9CiAgICBidXR0b257cGFkZGluZzo4cHggMTFweH0KICB9CgoKICAuY29uZmV0dGlMYXllcnsKICAgIHBvc2l0aW9uOmZpeGVkOwogICAgaW5zZXQ6MDsKICAgIHBvaW50ZXItZXZlbnRzOm5vbmU7CiAgICBvdmVyZmxvdzpoaWRkZW47CiAgICB6LWluZGV4Ojk5OTk7CiAgfQogIC5jb25mZXR0aVBpZWNlewogICAgcG9zaXRpb246YWJzb2x1dGU7CiAgICB0b3A6LTE4cHg7CiAgICB3aWR0aDoxMHB4OwogICAgaGVpZ2h0OjE2cHg7CiAgICBib3JkZXItcmFkaXVzOjNweDsKICAgIG9wYWNpdHk6Ljk1OwogICAgYW5pbWF0aW9uOmNvbmZldHRpRmFsbCB2YXIoLS1mYWxsRHVyLCAxNTAwbXMpIGxpbmVhciBmb3J3YXJkczsKICAgIHRyYW5zZm9ybTp0cmFuc2xhdGUzZCgwLDAsMCkgcm90YXRlKDBkZWcpOwogIH0KICBAa2V5ZnJhbWVzIGNvbmZldHRpRmFsbHsKICAgIDAle3RyYW5zZm9ybTp0cmFuc2xhdGUzZCgwLC0yMnB4LDApIHJvdGF0ZSgwZGVnKTtvcGFjaXR5OjF9CiAgICA4NCV7b3BhY2l0eToxfQogICAgMTAwJXt0cmFuc2Zvcm06dHJhbnNsYXRlM2QodmFyKC0tZHJpZnQsMHB4KSwxMDh2aCwwKSByb3RhdGUodmFyKC0tc3Bpbiw3MjBkZWcpKTtvcGFjaXR5OjB9CiAgfQogIC5zdW1tYXJ5LnBlcmZlY3R7CiAgICBib3JkZXItY29sb3I6I2JiZjdkMDsKICAgIGJhY2tncm91bmQ6bGluZWFyLWdyYWRpZW50KDE4MGRlZywjZjBmZGY0LCNmZmZlZjUpOwogICAgY29sb3I6IzE2NjUzNDsKICAgIGJveC1zaGFkb3c6MCAxNnB4IDMwcHggcmdiYSgyMiwxMDEsNTIsLjEwKTsKICB9CgoKICAvKiA9PT09PSBUb3AgUHJhY3RpY2UvVGVzdCB0YWJzID09PT09ICovCiAgLnRvcFRhYnN7CiAgICBkaXNwbGF5OmZsZXg7CiAgICBhbGlnbi1pdGVtczpjZW50ZXI7CiAgICBnYXA6OHB4OwogICAgZmxleC13cmFwOndyYXA7CiAgICBtYXJnaW46NnB4IDAgN3B4OwogIH0KICAudG9wVGFiewogICAgYm9yZGVyOjJweCBzb2xpZCB2YXIoLS1saW5lKTsKICAgIGJvcmRlci1yYWRpdXM6OTk5cHg7CiAgICBwYWRkaW5nOjdweCAxNnB4OwogICAgbWluLWhlaWdodDo0MHB4OwogICAgYmFja2dyb3VuZDojZmZmOwogICAgY29sb3I6IzBmMTcyYTsKICAgIGZvbnQ6aW5oZXJpdDsKICAgIGZvbnQtc2l6ZTpjbGFtcCgxM3B4LDEuOHZ3LDE1cHgpOwogICAgZm9udC13ZWlnaHQ6MTAwMDsKICAgIGJveC1zaGFkb3c6MCA3cHggMTZweCByZ2JhKDE1LDIzLDQyLC4wNSk7CiAgICBjdXJzb3I6cG9pbnRlcjsKICB9CiAgLnRvcFRhYi5hY3RpdmV7CiAgICBiYWNrZ3JvdW5kOmxpbmVhci1ncmFkaWVudCgxODBkZWcsIzhiNWNmNiwjNmQyOGQ5KTsKICAgIGNvbG9yOiNmZmY7CiAgICBib3JkZXItY29sb3I6IzZkMjhkOTsKICAgIGJveC1zaGFkb3c6MCAxMnB4IDIwcHggcmdiYSgxMDksNDAsMjE3LC4xOCk7CiAgfQogIC50b3BUYWI6YWN0aXZle3RyYW5zZm9ybTp0cmFuc2xhdGVZKDJweCl9CiAgI3JldHJ5VGVzdHtkaXNwbGF5Om5vbmU7fQogIGJvZHkudGVzdFNlbGVjdGVkICNyZXRyeVRlc3R7ZGlzcGxheTppbmxpbmUtZmxleDthbGlnbi1pdGVtczpjZW50ZXI7anVzdGlmeS1jb250ZW50OmNlbnRlcjt9CiAgLmNhcmQuY29tcGxldGVNb2RlIC5lcXVhdGlvbkRlY2ssCiAgLmNhcmQuY29tcGxldGVNb2RlIC52aXosCiAgLmNhcmQuY29tcGxldGVNb2RlIC5zdGF0dXN7ZGlzcGxheTpub25lO30KICAuY2FyZC5jb21wbGV0ZU1vZGUgI2NoZWNrLAogIC5jYXJkLmNvbXBsZXRlTW9kZSAjc3RlcHMsCiAgLmNhcmQuY29tcGxldGVNb2RlICNza2lwe2Rpc3BsYXk6bm9uZTt9CiAgLmNhcmQuY29tcGxldGVNb2RlIC5zdGFnZUxhYmVse21hcmdpbjphdXRvIGF1dG8gMTBweDt9CiAgLmNhcmQuY29tcGxldGVNb2RlIC5zdW1tYXJ5e2Rpc3BsYXk6YmxvY2s7bWFyZ2luOmF1dG87bWF4LXdpZHRoOjY1MHB4O3RleHQtYWxpZ246Y2VudGVyO30KCjwvc3R5bGU+CjxzY3JpcHQgc3JjPSJodHRwczovL2Nkbi5jb3VudGVyLmRldi9zY3JpcHQuanMiIGRhdGEtaWQ9IjgyNWU5M2I2LWNlOTktNDBlZi04YmNjLTEyNWYxMzI5NzQzMyIgZGF0YS11dGNvZmZzZXQ9IjgiPjwvc2NyaXB0Pgo8L2hlYWQ+Cjxib2R5Pgo8aGVhZGVyPgogIDxoMT5BZGRpbmcgb2YgTGlrZSBGcmFjdGlvbnM8L2gxPgogIDxkaXYgY2xhc3M9Im5vdGUiPlByYWN0aWNlIGhhcyBiYXIgZ3JhcGhpY3MuIFRlc3QgaGFzIG5vIGdyYXBoaWNzLiBQdXBpbHMgY2FuIGNob29zZSBQcmFjdGljZSBvciBUZXN0IGF0IGFueSB0aW1lLiBUbyBjb21wbGV0ZSB0aGUgbWlzc2lvbiwgc2NvcmUgPGI+MTAvMTA8L2I+IGluIHRoZSBUZXN0IGluIDxiPjEgc2l0dGluZzwvYj4uIFdoZW4gYSBmcmFjdGlvbiBtYWtlcyBvbmUgd2hvbGUsIHdyaXRlIHRoZSBzaW1wbGlmaWVkIGFuc3dlcjogPGI+MTwvYj4uPC9kaXY+CiAgPGRpdiBjbGFzcz0idG9wVGFicyIgcm9sZT0idGFibGlzdCIgYXJpYS1sYWJlbD0iQ2hvb3NlIFByYWN0aWNlIG9yIFRlc3QiPgogICAgPGJ1dHRvbiBjbGFzcz0idG9wVGFiIGFjdGl2ZSIgaWQ9InByYWN0aWNlVGFiIiB0eXBlPSJidXR0b24iIHJvbGU9InRhYiIgYXJpYS1zZWxlY3RlZD0idHJ1ZSI+UHJhY3RpY2U8L2J1dHRvbj4KICAgIDxidXR0b24gY2xhc3M9InRvcFRhYiIgaWQ9InRlc3RUYWIiIHR5cGU9ImJ1dHRvbiIgcm9sZT0idGFiIiBhcmlhLXNlbGVjdGVkPSJmYWxzZSI+VGVzdDwvYnV0dG9uPgogIDwvZGl2PgogIDxkaXYgY2xhc3M9Im1ldGEiPgogICAgPGRpdiBpZD0icGhhc2VQaWxsIj5QcmFjdGljZTwvZGl2PgogICAgPGRpdiBpZD0icHJvZ3Jlc3MiPlByYWN0aWNlIFF1ZXN0aW9uIDEgb2YgMTA8L2Rpdj4KICAgIDxkaXYgaWQ9InNjb3JlQm94Ij5QcmFjdGljZTogPHNwYW4gaWQ9InNjb3JlIj4wPC9zcGFuPi8xMDwvZGl2PgogIDwvZGl2Pgo8L2hlYWRlcj4KCjxtYWluPgogIDxkaXYgY2xhc3M9ImNhcmQiIGlkPSJjYXJkIj4KICAgIDxkaXYgY2xhc3M9InN0YWdlTGFiZWwiIGlkPSJzdGFnZUxhYmVsIj48c3BhbiBjbGFzcz0ic3RhZ2VEb3QiPjwvc3Bhbj48c3Bhbj5Vc2UgdGhlIGJhciB0byBoZWxwIHlvdS48L3NwYW4+PC9kaXY+CgogICAgPGRpdiBjbGFzcz0iZXF1YXRpb25EZWNrIj4KICAgICAgPGRpdiBjbGFzcz0iZXF1YXRpb25Sb3ciIGlkPSJlcXVhdGlvblJvdyI+CiAgICAgICAgPGRpdiBjbGFzcz0iaXRlbUNvbCI+CiAgICAgICAgICA8ZGl2IGNsYXNzPSJmcmFjIiBpZD0iZnJhY0EiIGFyaWEtbGFiZWw9IiI+CiAgICAgICAgICAgIDxzcGFuIGNsYXNzPSJudW0iIGlkPSJhTiI+MTwvc3Bhbj48c3BhbiBjbGFzcz0iZGVuIiBpZD0iYUQiPjU8L3NwYW4+CiAgICAgICAgICA8L2Rpdj4KICAgICAgICA8L2Rpdj4KCiAgICAgICAgPGRpdiBjbGFzcz0ic3ltYm9sIiBhcmlhLWhpZGRlbj0idHJ1ZSI+KzwvZGl2PgoKICAgICAgICA8ZGl2IGNsYXNzPSJpdGVtQ29sIj4KICAgICAgICAgIDxkaXYgY2xhc3M9ImZyYWMiIGlkPSJmcmFjQiIgYXJpYS1sYWJlbD0iIj4KICAgICAgICAgICAgPHNwYW4gY2xhc3M9Im51bSIgaWQ9ImJOIj4yPC9zcGFuPjxzcGFuIGNsYXNzPSJkZW4iIGlkPSJiRCI+NTwvc3Bhbj4KICAgICAgICAgIDwvZGl2PgogICAgICAgIDwvZGl2PgoKICAgICAgICA8ZGl2IGNsYXNzPSJzeW1ib2wiIGFyaWEtaGlkZGVuPSJ0cnVlIj49PC9kaXY+CgogICAgICAgIDxkaXYgY2xhc3M9Iml0ZW1Db2wiPgogICAgICAgICAgPGRpdiBjbGFzcz0iYW5zd2VyIiBpZD0iZnJhY3Rpb25BbnN3ZXIiIGFyaWEtbGFiZWw9InR5cGUgeW91ciBhbnN3ZXIgYXMgbnVtZXJhdG9yIG92ZXIgZGVub21pbmF0b3IiPgogICAgICAgICAgICA8aW5wdXQgaWQ9ImluTiIgdHlwZT0ibnVtYmVyIiBtaW49IjAiIHN0ZXA9IjEiIGlucHV0bW9kZT0ibnVtZXJpYyIgcGxhY2Vob2xkZXI9Im51bSI+CiAgICAgICAgICAgIDxkaXYgY2xhc3M9ImxpbmUiPjwvZGl2PgogICAgICAgICAgICA8aW5wdXQgaWQ9ImluRCIgdHlwZT0ibnVtYmVyIiBtaW49IjEiIHN0ZXA9IjEiIGlucHV0bW9kZT0ibnVtZXJpYyIgcGxhY2Vob2xkZXI9ImRlbiI+CiAgICAgICAgICA8L2Rpdj4KICAgICAgICA8L2Rpdj4KCiAgICAgICAgPGRpdiBjbGFzcz0ic3ltYm9sIHdob2xlT25seSIgYXJpYS1oaWRkZW49InRydWUiPj08L2Rpdj4KCiAgICAgICAgPGRpdiBjbGFzcz0iaXRlbUNvbCB3aG9sZU9ubHkiIGlkPSJ3aG9sZUFuc3dlckNvbCI+CiAgICAgICAgICA8ZGl2IGNsYXNzPSJ3aG9sZUFuc3dlciIgaWQ9Indob2xlQW5zd2VyIiBhcmlhLWxhYmVsPSJ0eXBlIHRoZSBzaW1wbGlmaWVkIGFuc3dlciBvbmUiPgogICAgICAgICAgICA8aW5wdXQgaWQ9ImluV2hvbGUiIHR5cGU9Im51bWJlciIgbWluPSIwIiBzdGVwPSIxIiBpbnB1dG1vZGU9Im51bWVyaWMiIHBsYWNlaG9sZGVyPSIxIj4KICAgICAgICAgIDwvZGl2PgogICAgICAgICAgPGRpdiBjbGFzcz0id2hvbGVUZXh0Ij5zaW1wbGlmaWVkIGFuc3dlcjwvZGl2PgogICAgICAgIDwvZGl2PgogICAgICA8L2Rpdj4KICAgICAgPGRpdiBjbGFzcz0iZXF1YXRpb25MaW5lIj48L2Rpdj4KICAgIDwvZGl2PgoKICAgIDxkaXYgY2xhc3M9InZpeiIgaWQ9ImJhckFucyI+PC9kaXY+CiAgICA8ZGl2IGNsYXNzPSJzdGF0dXMiIGlkPSJzdGF0dXMiPiZuYnNwOzwvZGl2PgoKICAgIDxkaXYgY2xhc3M9ImNvbnRyb2xzIj4KICAgICAgPGJ1dHRvbiBpZD0iY2hlY2siPkNoZWNrIEFuc3dlcjwvYnV0dG9uPgogICAgICA8YnV0dG9uIGlkPSJzdGVwcyIgY2xhc3M9InNlY29uZGFyeSI+U3RlcCAxOiBzaG93IGZpcnN0IGFkZGVuZDwvYnV0dG9uPgogICAgICA8YnV0dG9uIGlkPSJza2lwIiBjbGFzcz0ic2Vjb25kYXJ5Ij5Ta2lwPC9idXR0b24+CiAgICAgIDxidXR0b24gaWQ9InJldHJ5VGVzdCIgY2xhc3M9InNlY29uZGFyeSI+UmV0cnkgVGVzdDwvYnV0dG9uPgogICAgPC9kaXY+CgogICAgPGRpdiBjbGFzcz0ic3VtbWFyeSIgaWQ9InN1bW1hcnkiPjwvZGl2PgogIDwvZGl2Pgo8L21haW4+Cgo8Zm9vdGVyPkNyZWRpdCB0byBMaW0gS2ltIFN6ZSAyMDI1PC9mb290ZXI+Cgo8c2NyaXB0PgooZnVuY3Rpb24oKXsKICAidXNlIHN0cmljdCI7CgogIGNvbnN0IHJuZD0oYSxiKT0+TWF0aC5mbG9vcihNYXRoLnJhbmRvbSgpKihiLWErMSkpK2E7CiAgY29uc3QgZ2NkPShhLGIpPT5iP2djZChiLGElYik6TWF0aC5hYnMoYSk7CiAgY29uc3Qgc2ltcGxpZnk9KG4sZCk9Pntjb25zdCBnPWdjZChuLGQpO3JldHVybltuL2csZC9nXTt9OwogIGNvbnN0IHFzPShzLCByPWRvY3VtZW50KT0+ci5xdWVyeVNlbGVjdG9yKHMpOwoKICBmdW5jdGlvbiBkcmF3QmFyKGVsLCBkZW4sIHNwYW5zKXsKICAgIGNvbnN0IFc9NDQwLCBIPTQwLCBSPTEwLCBYMD02LCBZMD02LCBzZWdXPVcvZGVuOwogICAgY29uc3Qgc3ZnTlM9J2h0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnJzsKICAgIGNvbnN0IHN2Zz1kb2N1bWVudC5jcmVhdGVFbGVtZW50TlMoc3ZnTlMsJ3N2ZycpOwogICAgc3ZnLnNldEF0dHJpYnV0ZSgndmlld0JveCcsIGAwIDAgJHtXK1gwKjJ9ICR7SCtZMCoyfWApOwogICAgc3ZnLnNldEF0dHJpYnV0ZSgncm9sZScsICdpbWcnKTsKICAgIHN2Zy5zZXRBdHRyaWJ1dGUoJ2FyaWEtbGFiZWwnLCAnZnJhY3Rpb24gYmFyIG1vZGVsJyk7CgogICAgc3BhbnMuZm9yRWFjaChzPT57CiAgICAgIGlmKHMubGVuPD0wKSByZXR1cm47CiAgICAgIGNvbnN0IHJlY3Q9ZG9jdW1lbnQuY3JlYXRlRWxlbWVudE5TKHN2Z05TLCdyZWN0Jyk7CiAgICAgIHJlY3Quc2V0QXR0cmlidXRlKCd4JywgWDAgKyBzLnN0YXJ0KnNlZ1cpOwogICAgICByZWN0LnNldEF0dHJpYnV0ZSgneScsIFkwKTsKICAgICAgcmVjdC5zZXRBdHRyaWJ1dGUoJ3dpZHRoJywgcy5sZW4qc2VnVyk7CiAgICAgIHJlY3Quc2V0QXR0cmlidXRlKCdoZWlnaHQnLCBIKTsKICAgICAgcmVjdC5zZXRBdHRyaWJ1dGUoJ3J4JywgUik7IHJlY3Quc2V0QXR0cmlidXRlKCdyeScsIFIpOwogICAgICByZWN0LnNldEF0dHJpYnV0ZSgnZmlsbCcsIHMuZmlsbCk7CiAgICAgIHN2Zy5hcHBlbmRDaGlsZChyZWN0KTsKICAgIH0pOwoKICAgIGZvcihsZXQgaT0xO2k8ZGVuO2krKyl7CiAgICAgIGNvbnN0IHg9WDAraSpzZWdXOwogICAgICBjb25zdCBsbj1kb2N1bWVudC5jcmVhdGVFbGVtZW50TlMoc3ZnTlMsJ2xpbmUnKTsKICAgICAgbG4uc2V0QXR0cmlidXRlKCd4MScseCk7IGxuLnNldEF0dHJpYnV0ZSgneDInLHgpOwogICAgICBsbi5zZXRBdHRyaWJ1dGUoJ3kxJyxZMCk7IGxuLnNldEF0dHJpYnV0ZSgneTInLFkwK0gpOwogICAgICBsbi5zZXRBdHRyaWJ1dGUoJ3N0cm9rZScsIGdldENvbXB1dGVkU3R5bGUoZG9jdW1lbnQuZG9jdW1lbnRFbGVtZW50KS5nZXRQcm9wZXJ0eVZhbHVlKCctLXN0cm9rZScpIHx8ICcjMTExODI3Jyk7CiAgICAgIGxuLnNldEF0dHJpYnV0ZSgnc3Ryb2tlLXdpZHRoJywnMycpOwogICAgICBzdmcuYXBwZW5kQ2hpbGQobG4pOwogICAgfQoKICAgIGNvbnN0IGZyYW1lPWRvY3VtZW50LmNyZWF0ZUVsZW1lbnROUyhzdmdOUywncmVjdCcpOwogICAgZnJhbWUuc2V0QXR0cmlidXRlKCd4JyxYMCk7IGZyYW1lLnNldEF0dHJpYnV0ZSgneScsWTApOwogICAgZnJhbWUuc2V0QXR0cmlidXRlKCd3aWR0aCcsVyk7IGZyYW1lLnNldEF0dHJpYnV0ZSgnaGVpZ2h0JyxIKTsKICAgIGZyYW1lLnNldEF0dHJpYnV0ZSgncngnLFIpOyBmcmFtZS5zZXRBdHRyaWJ1dGUoJ3J5JyxSKTsKICAgIGZyYW1lLnNldEF0dHJpYnV0ZSgnZmlsbCcsJ25vbmUnKTsKICAgIGZyYW1lLnNldEF0dHJpYnV0ZSgnc3Ryb2tlJywgZ2V0Q29tcHV0ZWRTdHlsZShkb2N1bWVudC5kb2N1bWVudEVsZW1lbnQpLmdldFByb3BlcnR5VmFsdWUoJy0tc3Ryb2tlJykgfHwgJyMxMTE4MjcnKTsKICAgIGZyYW1lLnNldEF0dHJpYnV0ZSgnc3Ryb2tlLXdpZHRoJywnMycpOwogICAgc3ZnLmFwcGVuZENoaWxkKGZyYW1lKTsKCiAgICBlbC5pbm5lckhUTUw9Jyc7IGVsLmFwcGVuZENoaWxkKHN2Zyk7CiAgfQoKICBjb25zdCBCTFVFID0gZ2V0Q29tcHV0ZWRTdHlsZShkb2N1bWVudC5kb2N1bWVudEVsZW1lbnQpLmdldFByb3BlcnR5VmFsdWUoJy0tYmx1ZScpIHx8ICcjOWJiY2U2JzsKICBjb25zdCBQSU5LID0gZ2V0Q29tcHV0ZWRTdHlsZShkb2N1bWVudC5kb2N1bWVudEVsZW1lbnQpLmdldFByb3BlcnR5VmFsdWUoJy0tcGluaycpIHx8ICcjZjdjMGQxJzsKCiAgbGV0IHBoYXNlID0gJ3ByYWN0aWNlJzsKICBsZXQgcHJhY3RpY2VRdWVzdGlvbnMgPSBbXTsKICBsZXQgdGVzdFF1ZXN0aW9ucyA9IFtdOwogIGxldCBwcmFjdGljZUlkeCA9IDA7CiAgbGV0IHRlc3RJZHggPSAwOwogIGxldCBwcmFjdGljZVNjb3JlID0gMDsKICBsZXQgdGVzdFNjb3JlID0gMDsKICBsZXQgc3RlcE1vZGUgPSAwOwogIGxldCB3aG9sZVN0ZXBBY3RpdmUgPSBmYWxzZTsKICBsZXQgYXVkaW9DdHggPSBudWxsOwoKICBmdW5jdGlvbiBtYWtlT25lKCl7CiAgICBjb25zdCBkID0gcm5kKDIsMTIpOwogICAgY29uc3QgYSA9IHJuZCgxLCBkLTEpOwogICAgY29uc3QgYk1heCA9IE1hdGgubWluKGQtMSwgZC1hKTsKICAgIGNvbnN0IGIgPSBybmQoMSwgYk1heCk7CiAgICBjb25zdCBbYW5zTiwgYW5zRF0gPSBzaW1wbGlmeShhK2IsIGQpOwogICAgcmV0dXJuIHthLGIsZCwgYW5zTiwgYW5zRH07CiAgfQoKICBmdW5jdGlvbiBidWlsZFNldChuPTEwKXsKICAgIGNvbnN0IHNldD1bXTsKICAgIHdoaWxlKHNldC5sZW5ndGg8bil7CiAgICAgIGNvbnN0IHEgPSBtYWtlT25lKCk7CiAgICAgIGNvbnN0IGtleSA9IGAke3EuZH18JHtxLmF9fCR7cS5ifWA7CiAgICAgIGlmKCFzZXQuc29tZSh4PT5gJHt4LmR9fCR7eC5hfXwke3guYn1gPT09a2V5KSkgc2V0LnB1c2gocSk7CiAgICB9CiAgICByZXR1cm4gc2V0OwogIH0KCiAgZnVuY3Rpb24gY3VycmVudFF1ZXN0aW9ucygpeyByZXR1cm4gcGhhc2UgPT09ICdwcmFjdGljZScgPyBwcmFjdGljZVF1ZXN0aW9ucyA6IHRlc3RRdWVzdGlvbnM7IH0KICBmdW5jdGlvbiBjdXJyZW50SWR4KCl7IHJldHVybiBwaGFzZSA9PT0gJ3ByYWN0aWNlJyA/IHByYWN0aWNlSWR4IDogdGVzdElkeDsgfQogIGZ1bmN0aW9uIHNldEN1cnJlbnRJZHgodil7IGlmKHBoYXNlID09PSAncHJhY3RpY2UnKSBwcmFjdGljZUlkeCA9IHY7IGVsc2UgdGVzdElkeCA9IHY7IH0KICBmdW5jdGlvbiBjdXJyZW50U2NvcmUoKXsgcmV0dXJuIHBoYXNlID09PSAncHJhY3RpY2UnID8gcHJhY3RpY2VTY29yZSA6IHRlc3RTY29yZTsgfQogIGZ1bmN0aW9uIHBoYXNlTGFiZWwoKXsgcmV0dXJuIHBoYXNlID09PSAncHJhY3RpY2UnID8gJ1ByYWN0aWNlJyA6ICdUZXN0JzsgfQogIGZ1bmN0aW9uIHBoYXNlQ29tcGxldGUoKXsgcmV0dXJuIGN1cnJlbnRJZHgoKSA+PSBjdXJyZW50UXVlc3Rpb25zKCkubGVuZ3RoOyB9CgogIGZ1bmN0aW9uIHVwZGF0ZVRhYnMoKXsKICAgIGNvbnN0IHByYWN0aWNlT24gPSBwaGFzZSA9PT0gJ3ByYWN0aWNlJzsKICAgIHFzKCcjcHJhY3RpY2VUYWInKS5jbGFzc0xpc3QudG9nZ2xlKCdhY3RpdmUnLCBwcmFjdGljZU9uKTsKICAgIHFzKCcjdGVzdFRhYicpLmNsYXNzTGlzdC50b2dnbGUoJ2FjdGl2ZScsICFwcmFjdGljZU9uKTsKICAgIHFzKCcjcHJhY3RpY2VUYWInKS5zZXRBdHRyaWJ1dGUoJ2FyaWEtc2VsZWN0ZWQnLCBwcmFjdGljZU9uID8gJ3RydWUnIDogJ2ZhbHNlJyk7CiAgICBxcygnI3Rlc3RUYWInKS5zZXRBdHRyaWJ1dGUoJ2FyaWEtc2VsZWN0ZWQnLCAhcHJhY3RpY2VPbiA/ICd0cnVlJyA6ICdmYWxzZScpOwogICAgZG9jdW1lbnQuYm9keS5jbGFzc0xpc3QudG9nZ2xlKCd0ZXN0U2VsZWN0ZWQnLCAhcHJhY3RpY2VPbik7CiAgfQoKICBmdW5jdGlvbiB1cGRhdGVTY29yZUJveCgpewogICAgcXMoJyNzY29yZUJveCcpLmlubmVySFRNTCA9IGAke3BoYXNlTGFiZWwoKX06IDxzcGFuIGlkPSJzY29yZSI+JHtjdXJyZW50U2NvcmUoKX08L3NwYW4+LzEwYDsKICB9CgogIGZ1bmN0aW9uIHJlbmRlclN0ZXBzKHEpewogICAgY29uc3QgYmFyID0gcXMoJyNiYXJBbnMnKTsKICAgIGlmKHBoYXNlICE9PSAncHJhY3RpY2UnKXsKICAgICAgYmFyLmlubmVySFRNTCA9ICcnOwogICAgICBiYXIuY2xhc3NMaXN0LmFkZCgnaGlkZGVuJyk7CiAgICAgIHFzKCcjc3RlcHMnKS5zdHlsZS5kaXNwbGF5ID0gJ25vbmUnOwogICAgICBxcygnI3N0YWdlTGFiZWwnKS5pbm5lckhUTUwgPSAnPHNwYW4gY2xhc3M9InN0YWdlRG90Ij48L3NwYW4+PHNwYW4+VGVzdDogc29sdmUgd2l0aG91dCB0aGUgYmFyLjwvc3Bhbj4nOwogICAgICByZXR1cm47CiAgICB9CgogICAgYmFyLmNsYXNzTGlzdC5yZW1vdmUoJ2hpZGRlbicpOwogICAgcXMoJyNzdGVwcycpLnN0eWxlLmRpc3BsYXkgPSAnJzsKICAgIHFzKCcjc3RhZ2VMYWJlbCcpLmlubmVySFRNTCA9ICc8c3BhbiBjbGFzcz0ic3RhZ2VEb3QiPjwvc3Bhbj48c3Bhbj5QcmFjdGljZTogdXNlIHRoZSBiYXIgdG8gaGVscCB5b3UuPC9zcGFuPic7CgogICAgaWYoc3RlcE1vZGUgPT09IDEpewogICAgICBkcmF3QmFyKGJhciwgcS5kLCBbe3N0YXJ0OjAsbGVuOnEuYSxmaWxsOkJMVUV9XSk7CiAgICAgIHFzKCcjc3RlcHMnKS50ZXh0Q29udGVudCA9ICdTdGVwIDI6IGFkZCB0aGUgbmV4dCBwYXJ0cyc7CiAgICB9IGVsc2UgaWYoc3RlcE1vZGUgPT09IDIpewogICAgICBkcmF3QmFyKGJhciwgcS5kLCBbCiAgICAgICAge3N0YXJ0OjAsbGVuOnEuYSxmaWxsOkJMVUV9LAogICAgICAgIHtzdGFydDpxLmEsbGVuOnEuYixmaWxsOlBJTkt9CiAgICAgIF0pOwogICAgICBxcygnI3N0ZXBzJykudGV4dENvbnRlbnQgPSAnU2hvdyBmdWxsIHJlc3VsdCc7CiAgICB9IGVsc2UgewogICAgICBkcmF3QmFyKGJhciwgcS5kLCBbCiAgICAgICAge3N0YXJ0OjAsbGVuOnEuYSxmaWxsOkJMVUV9LAogICAgICAgIHtzdGFydDpxLmEsbGVuOnEuYixmaWxsOlBJTkt9CiAgICAgIF0pOwogICAgICBxcygnI3N0ZXBzJykudGV4dENvbnRlbnQgPSAnU3RlcCAxOiBzaG93IGZpcnN0IGFkZGVuZCc7CiAgICB9CiAgfQoKICBmdW5jdGlvbiBjbGVhcklucHV0cygpewogICAgd2hvbGVTdGVwQWN0aXZlID0gZmFsc2U7CiAgICBxcygnI2VxdWF0aW9uUm93JykuY2xhc3NMaXN0LnJlbW92ZSgnd2hvbGVNb2RlJyk7CiAgICBxcygnI2luTicpLnZhbHVlPScnOwogICAgcXMoJyNpbkQnKS52YWx1ZT0nJzsKICAgIHFzKCcjaW5XaG9sZScpLnZhbHVlPScnOwogICAgY29uc3Qgc3Q9cXMoJyNzdGF0dXMnKTsgc3QudGV4dENvbnRlbnQ9JyAnOyBzdC5jbGFzc05hbWU9J3N0YXR1cyc7CiAgfQoKICBmdW5jdGlvbiBzZXRDb250cm9sc0VuYWJsZWQoZW5hYmxlZCl7CiAgICBxcygnI2NoZWNrJykuZGlzYWJsZWQgPSAhZW5hYmxlZDsKICAgIHFzKCcjc2tpcCcpLmRpc2FibGVkID0gIWVuYWJsZWQ7CiAgICBxcygnI3N0ZXBzJykuZGlzYWJsZWQgPSAhZW5hYmxlZDsKICAgIHFzKCcjcmV0cnlUZXN0JykuZGlzYWJsZWQgPSBmYWxzZTsKICB9CgogIGZ1bmN0aW9uIHNob3dDb21wbGV0ZSgpewogICAgY29uc3QgbGFiZWwgPSBwaGFzZUxhYmVsKCk7CiAgICBjb25zdCBzY29yZSA9IGN1cnJlbnRTY29yZSgpOwogICAgcXMoJyNjYXJkJykuY2xhc3NMaXN0LmFkZCgnY29tcGxldGVNb2RlJyk7CiAgICBxcygnI3BoYXNlUGlsbCcpLnRleHRDb250ZW50ID0gYCR7bGFiZWx9IENvbXBsZXRlYDsKICAgIHFzKCcjcHJvZ3Jlc3MnKS50ZXh0Q29udGVudCA9IGAke2xhYmVsfSBjb21wbGV0ZWA7CiAgICB1cGRhdGVTY29yZUJveCgpOwogICAgcXMoJyNzdGFnZUxhYmVsJykuaW5uZXJIVE1MID0gcGhhc2UgPT09ICdwcmFjdGljZScKICAgICAgPyAnPHNwYW4gY2xhc3M9InN0YWdlRG90Ij48L3NwYW4+PHNwYW4+UHJhY3RpY2UgaXMgb3B0aW9uYWwuIFlvdSBtYXkgZ28gdG8gVGVzdCBhbnl0aW1lLjwvc3Bhbj4nCiAgICAgIDogJzxzcGFuIGNsYXNzPSJzdGFnZURvdCI+PC9zcGFuPjxzcGFuPlRlc3QgY29tcGxldGUuIFlvdSBtYXkgcmV0cnkgdGhlIFRlc3QuPC9zcGFuPic7CiAgICBzZXRDb250cm9sc0VuYWJsZWQoZmFsc2UpOwogICAgY29uc3Qgc3VtID0gcXMoJyNzdW1tYXJ5Jyk7CiAgICBzdW0uc3R5bGUuZGlzcGxheT0nYmxvY2snOwogICAgc3VtLmNsYXNzTGlzdC50b2dnbGUoJ3BlcmZlY3QnLCBwaGFzZSA9PT0gJ3Rlc3QnICYmIHNjb3JlID09PSAxMCk7CiAgICBpZihwaGFzZSA9PT0gJ3ByYWN0aWNlJyl7CiAgICAgIHN1bS5pbm5lckhUTUwgPSBgPGI+UHJhY3RpY2UgY29tcGxldGUhPC9iPjxicj5Zb3Ugc2NvcmVkIDxiPiR7c2NvcmV9LzEwPC9iPi4gWW91IG1heSBjbGljayA8Yj5UZXN0PC9iPiBhdCB0aGUgdG9wIHdoZW4gcmVhZHkuYDsKICAgIH1lbHNlIGlmKHNjb3JlID09PSAxMCl7CiAgICAgIHN1bS5pbm5lckhUTUwgPSBgPGI+UGVyZmVjdCE8L2I+PGJyPllvdSBzY29yZWQgPGI+MTAvMTA8L2I+IGZvciB0aGUgVGVzdC5gOwogICAgICBjZWxlYnJhdGVQZXJmZWN0VGVzdCgpOwogICAgICB0cnkgeyBwYXJlbnQucG9zdE1lc3NhZ2UoeyB0eXBlOidsaWtlRnJhY3Rpb25zVGVzdFBhc3NlZCcsIHNjb3JlOiAxMCB9LCAnKicpOyB9IGNhdGNoKGUpIHt9CiAgICB9ZWxzZXsKICAgICAgc3VtLmlubmVySFRNTCA9IGA8Yj5UZXN0IGNvbXBsZXRlITwvYj48YnI+WW91IHNjb3JlZCA8Yj4ke3Njb3JlfS8xMDwvYj4gZm9yIHRoZSBUZXN0LiBDbGljayA8Yj5SZXRyeSBUZXN0PC9iPiB0byB0cnkgYWdhaW4uYDsKICAgIH0KICB9CgogIGZ1bmN0aW9uIHNob3dRdWVzdGlvbigpewogICAgdXBkYXRlVGFicygpOwogICAgdXBkYXRlU2NvcmVCb3goKTsKICAgIHFzKCcjY2FyZCcpLmNsYXNzTGlzdC5yZW1vdmUoJ2NvbXBsZXRlTW9kZScpOwogICAgcXMoJyNjYXJkJykuY2xhc3NMaXN0LnRvZ2dsZSgndGVzdE1vZGUnLCBwaGFzZSA9PT0gJ3Rlc3QnKTsKCiAgICBpZihwaGFzZUNvbXBsZXRlKCkpewogICAgICBzaG93Q29tcGxldGUoKTsKICAgICAgcmV0dXJuOwogICAgfQoKICAgIGNvbnN0IHEgPSBjdXJyZW50UXVlc3Rpb25zKClbY3VycmVudElkeCgpXTsKICAgIGNvbnN0IGxhYmVsID0gcGhhc2VMYWJlbCgpOwogICAgcXMoJyNwaGFzZVBpbGwnKS50ZXh0Q29udGVudCA9IGxhYmVsOwogICAgcXMoJyNwcm9ncmVzcycpLnRleHRDb250ZW50ID0gYCR7bGFiZWx9IFF1ZXN0aW9uICR7Y3VycmVudElkeCgpKzF9IG9mIDEwYDsKICAgIHNldENvbnRyb2xzRW5hYmxlZCh0cnVlKTsKCiAgICBxcygnI2FOJykudGV4dENvbnRlbnQgPSBxLmE7IHFzKCcjYUQnKS50ZXh0Q29udGVudCA9IHEuZDsKICAgIHFzKCcjYk4nKS50ZXh0Q29udGVudCA9IHEuYjsgcXMoJyNiRCcpLnRleHRDb250ZW50ID0gcS5kOwogICAgcXMoJyNmcmFjQScpLnNldEF0dHJpYnV0ZSgnYXJpYS1sYWJlbCcsIGAke3EuYX0gb3ZlciAke3EuZH1gKTsKICAgIHFzKCcjZnJhY0InKS5zZXRBdHRyaWJ1dGUoJ2FyaWEtbGFiZWwnLCBgJHtxLmJ9IG92ZXIgJHtxLmR9YCk7CgogICAgcXMoJyNzdW1tYXJ5Jykuc3R5bGUuZGlzcGxheT0nbm9uZSc7CiAgICBxcygnI3N1bW1hcnknKS5jbGFzc0xpc3QucmVtb3ZlKCdwZXJmZWN0Jyk7CiAgICBjbGVhcklucHV0cygpOwogICAgc3RlcE1vZGU9MDsKICAgIHJlbmRlclN0ZXBzKHEpOwogIH0KCiAgZnVuY3Rpb24gc3dpdGNoUGhhc2UobmV4dFBoYXNlKXsKICAgIGlmKG5leHRQaGFzZSA9PT0gcGhhc2UpIHJldHVybjsKICAgIHBoYXNlID0gbmV4dFBoYXNlOwogICAgc2hvd1F1ZXN0aW9uKCk7CiAgfQoKICBmdW5jdGlvbiBzaW1wbGlmeVBhaXIobixkKXsKICAgIGNvbnN0IGc9Z2NkKG4sZCk7IHJldHVybiBbbi9nLCBkL2ddOwogIH0KCiAgZnVuY3Rpb24gZ2V0QXVkaW9Db250ZXh0KCl7CiAgICBjb25zdCBBdWRpb0NvbnRleHRDbGFzcyA9IHdpbmRvdy5BdWRpb0NvbnRleHQgfHwgd2luZG93LndlYmtpdEF1ZGlvQ29udGV4dDsKICAgIGlmKCFBdWRpb0NvbnRleHRDbGFzcykgcmV0dXJuIG51bGw7CiAgICBpZighYXVkaW9DdHgpIGF1ZGlvQ3R4ID0gbmV3IEF1ZGlvQ29udGV4dENsYXNzKCk7CiAgICBpZihhdWRpb0N0eC5zdGF0ZSA9PT0gJ3N1c3BlbmRlZCcpIGF1ZGlvQ3R4LnJlc3VtZSgpOwogICAgcmV0dXJuIGF1ZGlvQ3R4OwogIH0KCiAgZnVuY3Rpb24gcGxheVRvbmUoZnJlcSwgc3RhcnQsIGR1cmF0aW9uLCB0eXBlPSdzaW5lJywgZ2FpbkxldmVsPS4wOCl7CiAgICBjb25zdCBjdHggPSBnZXRBdWRpb0NvbnRleHQoKTsKICAgIGlmKCFjdHgpIHJldHVybjsKICAgIGNvbnN0IG9zYyA9IGN0eC5jcmVhdGVPc2NpbGxhdG9yKCk7CiAgICBjb25zdCBnYWluID0gY3R4LmNyZWF0ZUdhaW4oKTsKICAgIG9zYy50eXBlID0gdHlwZTsKICAgIG9zYy5mcmVxdWVuY3kuc2V0VmFsdWVBdFRpbWUoZnJlcSwgY3R4LmN1cnJlbnRUaW1lICsgc3RhcnQpOwogICAgZ2Fpbi5nYWluLnNldFZhbHVlQXRUaW1lKDAuMDAwMSwgY3R4LmN1cnJlbnRUaW1lICsgc3RhcnQpOwogICAgZ2Fpbi5nYWluLmV4cG9uZW50aWFsUmFtcFRvVmFsdWVBdFRpbWUoZ2FpbkxldmVsLCBjdHguY3VycmVudFRpbWUgKyBzdGFydCArIC4wMTUpOwogICAgZ2Fpbi5nYWluLmV4cG9uZW50aWFsUmFtcFRvVmFsdWVBdFRpbWUoMC4wMDAxLCBjdHguY3VycmVudFRpbWUgKyBzdGFydCArIGR1cmF0aW9uKTsKICAgIG9zYy5jb25uZWN0KGdhaW4pLmNvbm5lY3QoY3R4LmRlc3RpbmF0aW9uKTsKICAgIG9zYy5zdGFydChjdHguY3VycmVudFRpbWUgKyBzdGFydCk7CiAgICBvc2Muc3RvcChjdHguY3VycmVudFRpbWUgKyBzdGFydCArIGR1cmF0aW9uICsgLjAzKTsKICB9CgogIGZ1bmN0aW9uIHBsYXlDb3JyZWN0U291bmQoKXsKICAgIHBsYXlUb25lKDUyMy4yNSwgMCwgLjExLCAnc2luZScsIC4wNyk7CiAgICBwbGF5VG9uZSg2NTkuMjUsIC4wOSwgLjEyLCAnc2luZScsIC4wNyk7CiAgICBwbGF5VG9uZSg3ODMuOTksIC4xOCwgLjE2LCAndHJpYW5nbGUnLCAuMDYpOwogIH0KCiAgZnVuY3Rpb24gcGxheVBlcmZlY3RTb3VuZCgpewogICAgcGxheVRvbmUoNTIzLjI1LCAwLCAuMTIsICdzaW5lJywgLjA4KTsKICAgIHBsYXlUb25lKDY1OS4yNSwgLjEyLCAuMTIsICdzaW5lJywgLjA4KTsKICAgIHBsYXlUb25lKDc4My45OSwgLjI0LCAuMTQsICd0cmlhbmdsZScsIC4wOCk7CiAgICBwbGF5VG9uZSgxMDQ2LjUwLCAuNDAsIC4zNiwgJ3RyaWFuZ2xlJywgLjA3KTsKICAgIHBsYXlUb25lKDEzMTguNTEsIC41MCwgLjI4LCAnc2luZScsIC4wNDUpOwogIH0KCiAgZnVuY3Rpb24gbGF1bmNoQ29uZmV0dGkoY291bnQ9MTQwKXsKICAgIGNvbnN0IGxheWVyID0gZG9jdW1lbnQuY3JlYXRlRWxlbWVudCgnZGl2Jyk7CiAgICBsYXllci5jbGFzc05hbWUgPSAnY29uZmV0dGlMYXllcic7CiAgICBkb2N1bWVudC5ib2R5LmFwcGVuZENoaWxkKGxheWVyKTsKICAgIGNvbnN0IGNvbG91cnMgPSBbJyM3YzNhZWQnLCcjZjk3MzE2JywnIzIyYzU1ZScsJyMwZWE1ZTknLCcjZmFjYzE1JywnI2VjNDg5OSddOwogICAgZm9yKGxldCBpPTA7aTxjb3VudDtpKyspewogICAgICBjb25zdCBwaWVjZSA9IGRvY3VtZW50LmNyZWF0ZUVsZW1lbnQoJ2RpdicpOwogICAgICBwaWVjZS5jbGFzc05hbWUgPSAnY29uZmV0dGlQaWVjZSc7CiAgICAgIHBpZWNlLnN0eWxlLmxlZnQgPSBNYXRoLnJhbmRvbSgpKjEwMCArICd2dyc7CiAgICAgIHBpZWNlLnN0eWxlLmJhY2tncm91bmQgPSBjb2xvdXJzW2kgJSBjb2xvdXJzLmxlbmd0aF07CiAgICAgIHBpZWNlLnN0eWxlLnNldFByb3BlcnR5KCctLWZhbGxEdXInLCAoMTEwMCArIE1hdGgucmFuZG9tKCkqMTMwMCkgKyAnbXMnKTsKICAgICAgcGllY2Uuc3R5bGUuc2V0UHJvcGVydHkoJy0tZHJpZnQnLCAoKE1hdGgucmFuZG9tKCktLjUpKjI2MCkgKyAncHgnKTsKICAgICAgcGllY2Uuc3R5bGUuc2V0UHJvcGVydHkoJy0tc3BpbicsICgoTWF0aC5yYW5kb20oKT4uNT8xOi0xKSooMzYwICsgTWF0aC5yYW5kb20oKSo5MDApKSArICdkZWcnKTsKICAgICAgcGllY2Uuc3R5bGUuYW5pbWF0aW9uRGVsYXkgPSAoTWF0aC5yYW5kb20oKSoyNjApICsgJ21zJzsKICAgICAgbGF5ZXIuYXBwZW5kQ2hpbGQocGllY2UpOwogICAgfQogICAgc2V0VGltZW91dCgoKT0+bGF5ZXIucmVtb3ZlKCksIDI5MDApOwogIH0KCiAgZnVuY3Rpb24gY2VsZWJyYXRlUGVyZmVjdFRlc3QoKXsKICAgIHBsYXlQZXJmZWN0U291bmQoKTsKICAgIGxhdW5jaENvbmZldHRpKCk7CiAgfQoKICBmdW5jdGlvbiBtYXJrQ29ycmVjdCgpewogICAgcGxheUNvcnJlY3RTb3VuZCgpOwogICAgY29uc3Qgc3Q9cXMoJyNzdGF0dXMnKTsKICAgIHN0LnRleHRDb250ZW50PSdDb3JyZWN0ISc7IHN0LmNsYXNzTmFtZT0nc3RhdHVzIG9rJzsKICAgIGlmKHBoYXNlID09PSAncHJhY3RpY2UnKSBwcmFjdGljZVNjb3JlKys7CiAgICBlbHNlIHRlc3RTY29yZSsrOwogICAgdXBkYXRlU2NvcmVCb3goKTsKICAgIHNldFRpbWVvdXQobmV4dFF1ZXN0aW9uLCA2MDApOwogIH0KCiAgZnVuY3Rpb24gY2hlY2tBbnN3ZXIoKXsKICAgIGlmKHBoYXNlQ29tcGxldGUoKSkgcmV0dXJuOwogICAgY29uc3QgcSA9IGN1cnJlbnRRdWVzdGlvbnMoKVtjdXJyZW50SWR4KCldOwogICAgY29uc3Qgc3Q9cXMoJyNzdGF0dXMnKTsKICAgIGNvbnN0IGFuc3dlcklzV2hvbGUgPSBxLmFuc04gPT09IDEgJiYgcS5hbnNEID09PSAxOwoKICAgIGlmKHdob2xlU3RlcEFjdGl2ZSl7CiAgICAgIGNvbnN0IHdob2xlID0gTnVtYmVyKHFzKCcjaW5XaG9sZScpLnZhbHVlKTsKICAgICAgaWYoIU51bWJlci5pc0ludGVnZXIod2hvbGUpKXsKICAgICAgICBzdC50ZXh0Q29udGVudD0nTm93IHdyaXRlIHRoZSBzaW1wbGlmaWVkIGFuc3dlcjogMS4nOyBzdC5jbGFzc05hbWU9J3N0YXR1cyBubyc7IHJldHVybjsKICAgICAgfQogICAgICBpZih3aG9sZSA9PT0gMSl7CiAgICAgICAgbWFya0NvcnJlY3QoKTsKICAgICAgfWVsc2V7CiAgICAgICAgc3QudGV4dENvbnRlbnQ9J1RoaXMgaXMgb25lIHdob2xlLCBzbyB0aGUgc2ltcGxpZmllZCBhbnN3ZXIgbXVzdCBiZSAxLic7IHN0LmNsYXNzTmFtZT0nc3RhdHVzIG5vJzsKICAgICAgfQogICAgICByZXR1cm47CiAgICB9CgogICAgY29uc3QgbiA9IE51bWJlcihxcygnI2luTicpLnZhbHVlKTsKICAgIGNvbnN0IGQgPSBOdW1iZXIocXMoJyNpbkQnKS52YWx1ZSk7CgogICAgaWYoIU51bWJlci5pc0ludGVnZXIobikgfHwgIU51bWJlci5pc0ludGVnZXIoZCkgfHwgZDw9MCl7CiAgICAgIHN0LnRleHRDb250ZW50PSdFbnRlciB3aG9sZSBudW1iZXJzIGFzIGEgZnJhY3Rpb24uJzsgc3QuY2xhc3NOYW1lPSdzdGF0dXMgbm8nOyByZXR1cm47CiAgICB9CgogICAgaWYobiA9PT0gZCAmJiBuID4gMCl7CiAgICAgIGlmKGFuc3dlcklzV2hvbGUpewogICAgICAgIHdob2xlU3RlcEFjdGl2ZSA9IHRydWU7CiAgICAgICAgcXMoJyNlcXVhdGlvblJvdycpLmNsYXNzTGlzdC5hZGQoJ3dob2xlTW9kZScpOwogICAgICAgIHFzKCcjaW5XaG9sZScpLnZhbHVlPScnOwogICAgICAgIHN0LnRleHRDb250ZW50PWAke259LyR7ZH0gaXMgb25lIHdob2xlLiBOb3cgd3JpdGUgdGhlIHNpbXBsaWZpZWQgYW5zd2VyOiAxLmA7IHN0LmNsYXNzTmFtZT0nc3RhdHVzIG9rJzsKICAgICAgICBzZXRUaW1lb3V0KCgpPT5xcygnI2luV2hvbGUnKS5mb2N1cygpLCA1MCk7CiAgICAgICAgcmV0dXJuOwogICAgICB9CiAgICAgIHN0LnRleHRDb250ZW50PWAke259LyR7ZH0gbWVhbnMgMSB3aG9sZSwgYnV0IHRoaXMgcXVlc3Rpb24gZG9lcyBub3QgbWFrZSAxIHdob2xlLiBUcnkgYWdhaW4uYDsgc3QuY2xhc3NOYW1lPSdzdGF0dXMgbm8nOyByZXR1cm47CiAgICB9CgogICAgaWYoZDwyIHx8IGQ+MTIgfHwgbjwwIHx8IG4+ZCl7CiAgICAgIHN0LnRleHRDb250ZW50PSdBbnN3ZXIgbXVzdCBiZSDiiaQgMSB3aXRoIGRlbm9taW5hdG9yIDLigJMxMi4nOyBzdC5jbGFzc05hbWU9J3N0YXR1cyBubyc7IHJldHVybjsKICAgIH0KCiAgICBjb25zdCBbc24sc2RdPXNpbXBsaWZ5UGFpcihuLGQpOwogICAgaWYoc249PT1xLmFuc04gJiYgc2Q9PT1xLmFuc0QpewogICAgICBtYXJrQ29ycmVjdCgpOwogICAgfWVsc2V7CiAgICAgIHN0LnRleHRDb250ZW50PSdUcnkgYWdhaW4uJzsgc3QuY2xhc3NOYW1lPSdzdGF0dXMgbm8nOwogICAgfQogIH0KCiAgZnVuY3Rpb24gbmV4dFF1ZXN0aW9uKHNraXBwZWQ9ZmFsc2UpewogICAgc2V0Q3VycmVudElkeChjdXJyZW50SWR4KCkrMSk7CiAgICBzaG93UXVlc3Rpb24oKTsKICB9CgogIGZ1bmN0aW9uIHJldHJ5VGVzdCgpewogICAgcGhhc2UgPSAndGVzdCc7CiAgICB0ZXN0UXVlc3Rpb25zID0gYnVpbGRTZXQoMTApOwogICAgdGVzdElkeCA9IDA7CiAgICB0ZXN0U2NvcmUgPSAwOwogICAgc2hvd1F1ZXN0aW9uKCk7CiAgfQoKICBxcygnI3ByYWN0aWNlVGFiJykuYWRkRXZlbnRMaXN0ZW5lcignY2xpY2snLCAoKT0+IHN3aXRjaFBoYXNlKCdwcmFjdGljZScpKTsKICBxcygnI3Rlc3RUYWInKS5hZGRFdmVudExpc3RlbmVyKCdjbGljaycsICgpPT4gc3dpdGNoUGhhc2UoJ3Rlc3QnKSk7CiAgcXMoJyNyZXRyeVRlc3QnKS5hZGRFdmVudExpc3RlbmVyKCdjbGljaycsIHJldHJ5VGVzdCk7CiAgcXMoJyNjaGVjaycpLmFkZEV2ZW50TGlzdGVuZXIoJ2NsaWNrJywgY2hlY2tBbnN3ZXIpOwogIHFzKCcjaW5OJykuYWRkRXZlbnRMaXN0ZW5lcigna2V5ZG93bicsIGU9PnsgaWYoZS5rZXk9PT0nRW50ZXInKSBjaGVja0Fuc3dlcigpOyB9KTsKICBxcygnI2luRCcpLmFkZEV2ZW50TGlzdGVuZXIoJ2tleWRvd24nLCBlPT57IGlmKGUua2V5PT09J0VudGVyJykgY2hlY2tBbnN3ZXIoKTsgfSk7CiAgcXMoJyNpbldob2xlJykuYWRkRXZlbnRMaXN0ZW5lcigna2V5ZG93bicsIGU9PnsgaWYoZS5rZXk9PT0nRW50ZXInKSBjaGVja0Fuc3dlcigpOyB9KTsKICBxcygnI3N0ZXBzJykuYWRkRXZlbnRMaXN0ZW5lcignY2xpY2snLCAoKT0+eyBpZighcGhhc2VDb21wbGV0ZSgpKXsgc3RlcE1vZGUgPSAoc3RlcE1vZGUrMSklMzsgcmVuZGVyU3RlcHMoY3VycmVudFF1ZXN0aW9ucygpW2N1cnJlbnRJZHgoKV0pOyB9IH0pOwogIHFzKCcjc2tpcCcpLmFkZEV2ZW50TGlzdGVuZXIoJ2NsaWNrJywgKCk9PiBuZXh0UXVlc3Rpb24odHJ1ZSkpOwoKICBwcmFjdGljZVF1ZXN0aW9ucyA9IGJ1aWxkU2V0KDEwKTsKICB0ZXN0UXVlc3Rpb25zID0gYnVpbGRTZXQoMTApOwogIHNob3dRdWVzdGlvbigpOwoKICBmdW5jdGlvbiBjaGVhdFNvbHZlVmlzaWJsZU1vZGUoKXsKICAgIGlmKHBoYXNlID09PSAncHJhY3RpY2UnKXsKICAgICAgcHJhY3RpY2VTY29yZSA9IHByYWN0aWNlUXVlc3Rpb25zLmxlbmd0aDsKICAgICAgcHJhY3RpY2VJZHggPSBwcmFjdGljZVF1ZXN0aW9ucy5sZW5ndGg7CiAgICAgIHNob3dRdWVzdGlvbigpOwogICAgICByZXR1cm47CiAgICB9CiAgICB0ZXN0U2NvcmUgPSB0ZXN0UXVlc3Rpb25zLmxlbmd0aDsKICAgIHRlc3RJZHggPSB0ZXN0UXVlc3Rpb25zLmxlbmd0aDsKICAgIHNob3dRdWVzdGlvbigpOwogICAgdHJ5IHsgcGFyZW50LnBvc3RNZXNzYWdlKHsgdHlwZTonbGlrZUZyYWN0aW9uc1Rlc3RQYXNzZWQnLCBzY29yZTogdGVzdFF1ZXN0aW9ucy5sZW5ndGggfSwgJyonKTsgfSBjYXRjaChlKSB7fQogIH0KCiAgd2luZG93LmFkZEV2ZW50TGlzdGVuZXIoJ21lc3NhZ2UnLCAoZXZlbnQpPT57CiAgICBjb25zdCBkYXRhID0gZXZlbnQuZGF0YSB8fCB7fTsKICAgIGlmKGRhdGEgJiYgZGF0YS50eXBlID09PSAnY2hlYXRTb2x2ZUxpa2VGcmFjdGlvbnMnKXsKICAgICAgY2hlYXRTb2x2ZVZpc2libGVNb2RlKCk7CiAgICB9CiAgfSk7Cgp9KSgpOwo8L3NjcmlwdD4KPC9ib2R5Pgo8L2h0bWw+Cg==";
   function decodeQuizSrc(){
@@ -374,7 +892,7 @@
   let audioCtx = null;
   let gameStarted = false;
   let completed = false;
-  let nearLauncher = false;
+  let nearRefueler = false;
   let autoWalk = false;
   let cheatEnabled = false;
   let currentMode = 'learn';
@@ -389,11 +907,11 @@
   let ambienceStarted = false;
 
   const keys = { up:false, down:false, left:false, right:false };
-  const launcherPos = {x: 0, z: -5.8};
+  const refuelerPos = {x: 0, z: -5.8};
   const activatePos = {x: -1.55, z: -2.85};
   const joePos = {x: 0, z: 5.4, rot: 0};
 
-  let scene, camera, renderer, clock, joe, launcher, rocket, asteroid, planet, computerScreen;
+  let scene, camera, renderer, clock, joe, refueler, planet, fuelWarning, rocket, computerScreen, finn, finnShip, finnShipFlying=false;
   let walkPulse = 0;
   let threeReady = false;
   const joeParts = { torso:null, head:null, leftArm:null, rightArm:null, leftLeg:null, rightLeg:null, leftGlove:null, rightGlove:null, leftBoot:null, rightBoot:null };
@@ -427,6 +945,174 @@
     if(type === 'launch'){ [110,150,210,300].forEach((f,i)=>setTimeout(()=>tone(f,.22,'sawtooth',.03),i*130)); }
     if(type === 'boom'){ [80,60,120,220].forEach((f,i)=>setTimeout(()=>tone(f,.3,'sawtooth',.05/(i+1)),i*80)); }
     if(type === 'tap'){ tone(520,.06,'square',.025); }
+  }
+
+
+  const introDialogues = [
+    {speaker:'Finn', icon:'🐸', text:'Oh no, oh no! My rocket tank is completely empty. I cannot take off like this!'},
+    {speaker:'Space Max', icon:'🚀', text:'Stay calm, Finn. I’m Space Max. I can help you get the fuel flowing again.'},
+    {speaker:'Finn', icon:'🐸', text:'The refueling machine is locked. It says I must answer Adding Like Fractions questions before it will pump any fuel.'},
+    {speaker:'Space Max', icon:'🚀', text:'That makes sense. Like fractions have the same denominator. We add the numerators and keep the denominator.'},
+    {speaker:'Finn', icon:'🐸', text:'Thank you! But Space Max, why are you travelling across space by yourself?'},
+    {speaker:'Space Max', icon:'🚀', text:'An alien captured me. I escaped, but my rocket is incomplete. I’m collecting parts so I can build a rocket back to Earth.'},
+    {speaker:'Finn', icon:'🐸', text:'Then let’s refuel my rocket together. If we succeed, I’ll give you my spare Left Wing Stabiliser.'}
+  ];
+
+  const endingDialogues = [
+    {speaker:'Finn', icon:'🐸', text:'Ribbit-ribbit! The tank is full again. You really did it, Space Max!'},
+    {speaker:'Space Max', icon:'🚀', text:'The refueling machine worked because we added the like fractions carefully.'},
+    {speaker:'Finn', icon:'🐸', text:'Take this Left Wing Stabiliser. It will help balance your rocket when you fly back to Earth!', reward:true},
+    {speaker:'Space Max', icon:'🚀', text:'One more rocket part found. I’m getting closer to going home.'},
+    {speaker:'Finn', icon:'🐸', text:'Good luck, Space Max. I’m ready to fly now that my battery and fuel tank are full!'}
+  ];
+
+
+  let activeDialogueLine = null;
+  let dialogueAutoTimer = null;
+  let dialogueLineToken = 0;
+
+  function clearDialogueAutoTimer(){
+    if(dialogueAutoTimer){
+      clearTimeout(dialogueAutoTimer);
+      dialogueAutoTimer = null;
+    }
+  }
+
+  function getDialogueVoice(speaker){
+    if(!('speechSynthesis' in window)) return null;
+    const voices = window.speechSynthesis.getVoices ? window.speechSynthesis.getVoices() : [];
+    if(!voices || !voices.length) return null;
+    const english = voices.filter(v => /^en/i.test(v.lang || ''));
+    const pool = english.length ? english : voices;
+    if(String(speaker).toLowerCase().includes('finn')){
+      return pool.find(v => /female|samantha|victoria|karen|zira|google uk english female/i.test(v.name)) || pool[1] || pool[0];
+    }
+    return pool.find(v => /male|daniel|alex|david|google uk english male/i.test(v.name)) || pool[0];
+  }
+
+  function estimateDialogueDuration(text){
+    const len = String(text || '').length;
+    return Math.max(2300, Math.min(7200, 1200 + len * 62));
+  }
+
+  function speakDialogueLine(line, onDone){
+    activeDialogueLine = line;
+    clearDialogueAutoTimer();
+
+    const token = ++dialogueLineToken;
+    const safeDone = () => {
+      if(token !== dialogueLineToken) return;
+      clearDialogueAutoTimer();
+      onDone && onDone();
+    };
+
+    const fallbackMs = estimateDialogueDuration(line && line.text);
+    dialogueAutoTimer = setTimeout(safeDone, fallbackMs + 900);
+
+    if(!soundOn || !line || !('speechSynthesis' in window) || typeof SpeechSynthesisUtterance === 'undefined'){
+      return;
+    }
+
+    try{
+      window.speechSynthesis.cancel();
+      const utter = new SpeechSynthesisUtterance(line.text || '');
+      const speaker = String(line.speaker || '').toLowerCase();
+      utter.lang = 'en-US';
+
+      if(speaker.includes('finn')){
+        utter.pitch = 1.55;
+        utter.rate = 1.12;
+        utter.volume = .95;
+      } else {
+        utter.pitch = .78;
+        utter.rate = .88;
+        utter.volume = .95;
+      }
+
+      const v = getDialogueVoice(line.speaker || '');
+      if(v) utter.voice = v;
+
+      utter.onend = () => {
+        setTimeout(safeDone, 420);
+      };
+      utter.onerror = () => {
+        // If the browser blocks speech, the timer still advances the cutscene.
+      };
+
+      window.speechSynthesis.speak(utter);
+    }catch(e){
+      // If speech synthesis fails, the timer still advances the cutscene.
+    }
+  }
+
+  function stopDialogueVoice(){
+    clearDialogueAutoTimer();
+    dialogueLineToken++;
+    try{ if('speechSynthesis' in window) window.speechSynthesis.cancel(); }catch(e){}
+  }
+
+  function showDialogueSequence(lines, done){
+    const overlay = $('dialogueOverlay');
+    const name = $('speakerName');
+    const dot = $('speakerDot');
+    const txt = $('dialogueText');
+    const reward = $('rewardLine');
+    const next = $('dialogueNextBtn');
+    const skip = $('dialogueSkipBtn');
+    const replay = $('dialogueReplayVoiceBtn');
+    if(!overlay || !name || !dot || !txt){ done && done(); return; }
+
+    let i = 0;
+    let finished = false;
+    overlay.style.display = 'block';
+
+    function finish(){
+      if(finished) return;
+      finished = true;
+      stopDialogueVoice();
+      overlay.style.display = 'none';
+      if(reward) reward.style.display = 'none';
+      done && done();
+    }
+
+    function advance(){
+      if(finished) return;
+      i++;
+      if(i >= lines.length) finish();
+      else render();
+    }
+
+    function render(){
+      const line = lines[i] || {};
+      name.textContent = line.speaker || '';
+      name.classList.toggle('finn', String(line.speaker || '').toLowerCase().includes('finn'));
+      name.classList.toggle('max', String(line.speaker || '').toLowerCase().includes('max'));
+      dot.textContent = line.icon || '✨';
+      txt.textContent = line.text || '';
+
+      if(reward) reward.style.display = line.reward ? 'inline-block' : 'none';
+      if(next) next.textContent = (i === lines.length-1) ? 'Continue' : 'Next ▶';
+
+      sound('tap');
+      speakDialogueLine(line, advance);
+    }
+
+    // The story now plays automatically. Skip is the main user control.
+    if(next){
+      next.onclick = () => {
+        stopDialogueVoice();
+        advance();
+      };
+    }
+    if(skip) skip.onclick = finish;
+    if(replay) replay.onclick = () => {
+      if(activeDialogueLine){
+        stopDialogueVoice();
+        speakDialogueLine(activeDialogueLine, advance);
+      }
+    };
+
+    render();
   }
 
   function startAmbience(){
@@ -524,7 +1210,7 @@
     const cyan = new THREE.PointLight(0x8cecff,1.1,24); cyan.position.set(7,3,-5); scene.add(cyan);
 
     const groundGeo = new THREE.CylinderGeometry(38,38,.32,128);
-    const groundMat = new THREE.MeshStandardMaterial({color:0x245d73, metalness:.08, roughness:.66, emissive:0x0a2435, emissiveIntensity:.18});
+    const groundMat = new THREE.MeshStandardMaterial({color:0xc56a1d, metalness:.06, roughness:.68, emissive:0x6e2f08, emissiveIntensity:.16});
     const ground = new THREE.Mesh(groundGeo, groundMat);
     ground.receiveShadow = true; ground.position.y = -.22; scene.add(ground);
     const landingGeo = new THREE.CylinderGeometry(1.15,1.15,.045,48);
@@ -538,9 +1224,10 @@
 
     createStars();
     createPlanet();
-    createAsteroid();
-    createLauncher();
+    createFuelWarning();
+    createRefuelingMachine();
     createJoe();
+    createFinnAndShip();
     createSpaceProps();
 
     window.addEventListener('resize', resizeThree);
@@ -563,38 +1250,35 @@
   }
   function createPlanet(){
     const geo = new THREE.SphereGeometry(5.2,64,64);
-    const mat = new THREE.MeshStandardMaterial({color:0x3ecfbf, roughness:.62, metalness:.06, emissive:0x16356a, emissiveIntensity:.24});
+    const mat = new THREE.MeshStandardMaterial({color:0xc96b20, roughness:.68, metalness:.04, emissive:0x5a2409, emissiveIntensity:.26});
     planet = new THREE.Mesh(geo, mat);
     planet.position.set(-15,6,-26); planet.rotation.z = -.25;
     scene.add(planet);
-    const ring = new THREE.Mesh(new THREE.TorusGeometry(6.2,.2,16,160), new THREE.MeshBasicMaterial({color:0x9dfcff, transparent:true, opacity:.42}));
+    const ring = new THREE.Mesh(new THREE.TorusGeometry(6.1,.18,16,160), new THREE.MeshBasicMaterial({color:0xffd86b, transparent:true, opacity:.42}));
     ring.position.copy(planet.position); ring.rotation.set(1.3,.25,-.34); scene.add(ring);
-    const moon = new THREE.Mesh(new THREE.SphereGeometry(.95,24,24), new THREE.MeshStandardMaterial({color:0xa78bfa, roughness:.55, metalness:.06, emissive:0x24155f, emissiveIntensity:.16}));
-    moon.position.set(-11.8,8.3,-23.5);
-    scene.add(moon);
   }
-  function createAsteroid(){
+  function createFuelWarning(){
     const geo = new THREE.DodecahedronGeometry(1.1,1);
     const mat = new THREE.MeshStandardMaterial({color:0x6b5041, roughness:.9, emissive:0x3d170c, emissiveIntensity:.3});
-    asteroid = new THREE.Mesh(geo, mat);
-    asteroid.position.set(-4,10,-21); asteroid.castShadow = true; scene.add(asteroid);
-    const fire = new THREE.PointLight(0xff633d,1.6,18); fire.position.set(-5,10.5,-20); asteroid.add(fire);
+    fuelWarning = new THREE.Mesh(geo, mat);
+    fuelWarning.position.set(-4,10,-21); fuelWarning.castShadow = true; scene.add(fuelWarning);
+    const fire = new THREE.PointLight(0xff633d,1.6,18); fire.position.set(-5,10.5,-20); fuelWarning.add(fire);
   }
-  function createLauncher(){
-    launcher = new THREE.Group();
-    launcher.position.set(launcherPos.x,0,launcherPos.z);
-    scene.add(launcher);
+  function createRefuelingMachine(){
+    refueler = new THREE.Group();
+    refueler.position.set(refuelerPos.x,0,refuelerPos.z);
+    scene.add(refueler);
 
-    const orangeMat = new THREE.MeshStandardMaterial({color:0x4d59b8, metalness:.2, roughness:.44, emissive:0x18194b, emissiveIntensity:.18});
-    const orangeDark = new THREE.MeshStandardMaterial({color:0x2f3c92, metalness:.18, roughness:.52, emissive:0x101633, emissiveIntensity:.14});
+    const orangeMat = new THREE.MeshStandardMaterial({color:0xc86616, metalness:.18, roughness:.48, emissive:0x351000, emissiveIntensity:.18});
+    const orangeDark = new THREE.MeshStandardMaterial({color:0x9e4710, metalness:.16, roughness:.55, emissive:0x271000, emissiveIntensity:.12});
     const goldMat = new THREE.MeshStandardMaterial({color:0xffc45a, metalness:.28, roughness:.32, emissive:0x3d2100, emissiveIntensity:.18});
     const cyanMat = new THREE.MeshStandardMaterial({color:0xbafcff, metalness:.18, roughness:.22, emissive:0x236b70, emissiveIntensity:.28});
     const darkMat = new THREE.MeshStandardMaterial({color:0x18304c, metalness:.35, roughness:.28, emissive:0x071724, emissiveIntensity:.5});
 
-    // Big orange chamber behind the launcher, matching the reference style.
+    // Big orange chamber behind the refueler, matching the reference style.
     const chamber = new THREE.Group();
     chamber.position.set(0,1.15,-1.85);
-    launcher.add(chamber);
+    refueler.add(chamber);
     const back = new THREE.Mesh(new THREE.BoxGeometry(7.8,2.5,1.15), orangeMat);
     back.castShadow=true; back.receiveShadow=true; chamber.add(back);
     const roof = new THREE.Mesh(new THREE.BoxGeometry(7.1,.28,1.35), orangeDark);
@@ -611,8 +1295,8 @@
     const doorGlow = new THREE.Mesh(new THREE.PlaneGeometry(.82,.72), new THREE.MeshBasicMaterial({color:0x8cecff, transparent:true, opacity:.42}));
     doorGlow.position.set(0,-.22,.681); chamber.add(doorGlow);
 
-    // Console close to Uncle Joe.
-    const console = new THREE.Group(); console.position.set(-1.55,.64,1.25); console.rotation.y=-.35; launcher.add(console);
+    // Console close to Space Max.
+    const console = new THREE.Group(); console.position.set(-1.55,.64,1.25); console.rotation.y=-.35; refueler.add(console);
     const consoleBase = new THREE.Mesh(new THREE.BoxGeometry(1.55,.78,.8), darkMat); consoleBase.castShadow=true; console.add(consoleBase);
     const panel = new THREE.Mesh(new THREE.BoxGeometry(1.75,1.05,.18), darkMat); panel.position.set(0,.72,-.08); panel.rotation.x=-.22; panel.castShadow=true; console.add(panel);
     computerScreen = new THREE.Mesh(new THREE.PlaneGeometry(1.36,.62), new THREE.MeshBasicMaterial({color:0xa7fff9, transparent:true, opacity:.78}));
@@ -623,46 +1307,33 @@
       btn.rotation.x=Math.PI/2; btn.position.set(-.42+i*.42,.23,.43); console.add(btn);
     }
 
-    // 3D rocket and launcher platform, clearly visible beside the chamber.
-    const pad = new THREE.Mesh(new THREE.CylinderGeometry(1.1,1.28,.28,6), goldMat); pad.position.set(1.95,.16,.55); pad.castShadow=true; launcher.add(pad);
-    const towerMat = new THREE.MeshStandardMaterial({color:0x6a7fc8, metalness:.44, roughness:.3, emissive:0x121b42, emissiveIntensity:.18});
+    // 3D rocket and refueling machine platform, clearly visible beside the chamber.
+    const pad = new THREE.Mesh(new THREE.CylinderGeometry(1.05,1.25,.32,48), goldMat); pad.position.set(1.95,.16,.55); pad.castShadow=true; refueler.add(pad);
+    const towerMat = new THREE.MeshStandardMaterial({color:0x8c622e, metalness:.42, roughness:.32, emissive:0x1b1006, emissiveIntensity:.15});
     for(let x of [1.28,2.62]){
-      const t = new THREE.Mesh(new THREE.CylinderGeometry(.05,.05,3.15,12), towerMat); t.position.set(x,1.75,.2); t.castShadow=true; launcher.add(t);
+      const t = new THREE.Mesh(new THREE.CylinderGeometry(.045,.045,3.15,12), towerMat); t.position.set(x,1.75,.2); t.castShadow=true; refueler.add(t);
     }
     for(let y of [.72,1.38,2.04,2.7]){
-      const beam = new THREE.Mesh(new THREE.BoxGeometry(1.5,.06,.06), towerMat); beam.position.set(1.95,y,.2); beam.castShadow=true; launcher.add(beam);
+      const beam = new THREE.Mesh(new THREE.BoxGeometry(1.5,.055,.055), towerMat); beam.position.set(1.95,y,.2); beam.castShadow=true; refueler.add(beam);
     }
-    rocket = new THREE.Group(); rocket.position.set(1.95,.45,.55); launcher.add(rocket);
-    const shellMat = new THREE.MeshStandardMaterial({color:0xc7fcff, metalness:.35, roughness:.2, emissive:0x3aa4ff, emissiveIntensity:.09});
-    const noseMat = new THREE.MeshStandardMaterial({color:0xff6b6b, metalness:.22, roughness:.26, emissive:0x4a1010, emissiveIntensity:.08});
-    const finMat = new THREE.MeshStandardMaterial({color:0x6de5ff, metalness:.2, roughness:.24, emissive:0x10396a, emissiveIntensity:.12});
-    const body = new THREE.Mesh(new THREE.CylinderGeometry(.22,.31,1.68,32), shellMat);
-    body.position.y=.9; body.castShadow=true; rocket.add(body);
-    const nose = new THREE.Mesh(new THREE.ConeGeometry(.29,.62,32), noseMat);
-    nose.position.y=2.05; nose.castShadow=true; rocket.add(nose);
-    const band = new THREE.Mesh(new THREE.TorusGeometry(.27,.04,12,42), finMat);
-    band.rotation.x=Math.PI/2; band.position.y=1.18; rocket.add(band);
-    const windowOrb = new THREE.Mesh(new THREE.SphereGeometry(.1,18,18), new THREE.MeshBasicMaterial({color:0x9efcff}));
-    windowOrb.position.set(0,1.22,.22); rocket.add(windowOrb);
-    for(let sx of [-.22,.22]){
-      const booster = new THREE.Mesh(new THREE.CylinderGeometry(.09,.11,1.1,18), noseMat);
-      booster.position.set(sx,.62,0); booster.castShadow=true; rocket.add(booster);
-      const cap = new THREE.Mesh(new THREE.ConeGeometry(.095,.18,18), finMat);
-      cap.position.set(sx,1.24,0); rocket.add(cap);
-    }
+    rocket = new THREE.Group(); rocket.position.set(1.95,.45,.55); refueler.add(rocket);
+    const body = new THREE.Mesh(new THREE.CylinderGeometry(.23,.27,1.75,32), new THREE.MeshStandardMaterial({color:0xf7fbff, metalness:.35, roughness:.24, emissive:0x99f7ff, emissiveIntensity:.08}));
+    body.position.y=.86; body.castShadow=true; rocket.add(body);
+    const nose = new THREE.Mesh(new THREE.ConeGeometry(.28,.55,32), new THREE.MeshStandardMaterial({color:0xff5f6d, metalness:.2, roughness:.28}));
+    nose.position.y=2.01; nose.castShadow=true; rocket.add(nose);
     for(let a of [0,Math.PI*2/3,Math.PI*4/3]){
-      const fin = new THREE.Mesh(new THREE.BoxGeometry(.12,.45,.36), finMat);
-      fin.position.set(Math.cos(a)*.29,.25,Math.sin(a)*.29); fin.rotation.y=-a; fin.castShadow=true; rocket.add(fin);
+      const fin = new THREE.Mesh(new THREE.BoxGeometry(.12,.42,.34), goldMat);
+      fin.position.set(Math.cos(a)*.27,.25,Math.sin(a)*.27); fin.rotation.y=-a; fin.castShadow=true; rocket.add(fin);
     }
-    const flame = new THREE.PointLight(0x7ae7ff,1.2,5); flame.position.set(1.95,.35,.55); launcher.add(flame);
+    const flame = new THREE.PointLight(0xff8a36,1.05,5); flame.position.set(1.95,.35,.55); refueler.add(flame);
 
-    // Solid areas: Uncle Joe cannot walk through the chamber, console, rocket pad, gantry, or side walls.
-    addBlocker({type:'box', x:launcherPos.x, z:launcherPos.z-1.85, w:8.35, d:1.72, label:'orange chamber wall'});
-    addBlocker({type:'box', x:launcherPos.x-4.12, z:launcherPos.z-1.85, w:.62, d:2.1, label:'left chamber side'});
-    addBlocker({type:'box', x:launcherPos.x+4.12, z:launcherPos.z-1.85, w:.62, d:2.1, label:'right chamber side'});
-    addBlocker({type:'circle', x:launcherPos.x-1.55, z:launcherPos.z+1.25, r:.92, label:'console'});
-    addBlocker({type:'circle', x:launcherPos.x+1.95, z:launcherPos.z+.55, r:1.18, label:'rocket pad'});
-    addBlocker({type:'box', x:launcherPos.x+1.95, z:launcherPos.z+.2, w:1.7, d:.55, label:'gantry'});
+    // Solid areas: Space Max cannot walk through the chamber, console, rocket pad, gantry, or side walls.
+    addBlocker({type:'box', x:refuelerPos.x, z:refuelerPos.z-1.85, w:8.35, d:1.72, label:'orange chamber wall'});
+    addBlocker({type:'box', x:refuelerPos.x-4.12, z:refuelerPos.z-1.85, w:.62, d:2.1, label:'left chamber side'});
+    addBlocker({type:'box', x:refuelerPos.x+4.12, z:refuelerPos.z-1.85, w:.62, d:2.1, label:'right chamber side'});
+    addBlocker({type:'circle', x:refuelerPos.x-1.55, z:refuelerPos.z+1.25, r:.92, label:'console'});
+    addBlocker({type:'circle', x:refuelerPos.x+1.95, z:refuelerPos.z+.55, r:1.18, label:'rocket pad'});
+    addBlocker({type:'box', x:refuelerPos.x+1.95, z:refuelerPos.z+.2, w:1.7, d:.55, label:'gantry'});
   }
   function makeCapsule(radius, length, material, radial=24){
     const group = new THREE.Group();
@@ -687,7 +1358,7 @@
     const faceMat = new THREE.MeshStandardMaterial({color:0xffd7b2, roughness:.62});
     const glassMat = new THREE.MeshPhysicalMaterial({color:0xdfffff, transparent:true, opacity:.5, roughness:.03, metalness:.02, transmission:.18});
 
-    // Round, toy-like astronaut body to match the reference Uncle Joe.
+    // Round, toy-like astronaut body to match the reference Space Max.
     const torso = makeCapsule(.43,.9,suitMat,30); torso.position.y=1.12; torso.scale.set(.92,1.1,.78); joe.add(torso); joeParts.torso = torso;
     const belly = new THREE.Mesh(new THREE.SphereGeometry(.42,28,16), suitShade); belly.position.y=.95; belly.scale.set(1,.52,.72); belly.castShadow=true; joe.add(belly);
     const collar = new THREE.Mesh(new THREE.TorusGeometry(.39,.06,14,36), suitShade); collar.position.y=1.64; collar.rotation.x=Math.PI/2; joe.add(collar);
@@ -710,6 +1381,137 @@
     const shadow = new THREE.Mesh(new THREE.CircleGeometry(.58,32), new THREE.MeshBasicMaterial({color:0x7f5b39, transparent:true, opacity:.22}));
     shadow.rotation.x=-Math.PI/2; shadow.position.y=.012; joe.add(shadow);
   }
+
+  function makeTextSprite(label, opts={}){
+    const canvas = document.createElement('canvas');
+    const ctx = canvas.getContext('2d');
+    const fontSize = opts.fontSize || 34;
+    const padX = 18, padY = 10;
+    ctx.font = `900 ${fontSize}px Arial`;
+    const w = Math.ceil(ctx.measureText(label).width + padX*2);
+    const h = fontSize + padY*2;
+    canvas.width = Math.max(128, w);
+    canvas.height = 64;
+    ctx.font = `900 ${fontSize}px Arial`;
+    ctx.textAlign = 'center';
+    ctx.textBaseline = 'middle';
+    ctx.fillStyle = 'rgba(4,10,26,.72)';
+    roundRect(ctx, (canvas.width-w)/2, 7, w, h, 14);
+    ctx.fill();
+    ctx.strokeStyle = 'rgba(140,236,255,.55)';
+    ctx.lineWidth = 3;
+    roundRect(ctx, (canvas.width-w)/2, 7, w, h, 14);
+    ctx.stroke();
+    ctx.fillStyle = '#fff7d1';
+    ctx.fillText(label, canvas.width/2, 7 + h/2 + 1);
+    const tex = new THREE.CanvasTexture(canvas);
+    tex.needsUpdate = true;
+    const sprite = new THREE.Sprite(new THREE.SpriteMaterial({map:tex, transparent:true, depthTest:false}));
+    sprite.scale.set((opts.scaleX||1.8), (opts.scaleY||.55), 1);
+    sprite.renderOrder = 10;
+    return sprite;
+  }
+  function roundRect(ctx,x,y,w,h,r){
+    ctx.beginPath();
+    ctx.moveTo(x+r,y);
+    ctx.arcTo(x+w,y,x+w,y+h,r);
+    ctx.arcTo(x+w,y+h,x,y+h,r);
+    ctx.arcTo(x,y+h,x,y,r);
+    ctx.arcTo(x,y,x+w,y,r);
+    ctx.closePath();
+  }
+  function fitModelToHeight(obj, targetHeight){
+    const box = new THREE.Box3().setFromObject(obj);
+    const size = new THREE.Vector3();
+    box.getSize(size);
+    const maxY = size.y || 1;
+    const s = targetHeight / maxY;
+    obj.scale.multiplyScalar(s);
+    const box2 = new THREE.Box3().setFromObject(obj);
+    const center = new THREE.Vector3();
+    box2.getCenter(center);
+    obj.position.sub(center.multiplyScalar(1));
+    const box3 = new THREE.Box3().setFromObject(obj);
+    obj.position.y -= box3.min.y;
+  }
+  function createFinnAndShip(){
+    const loaderReady = !!THREE.GLTFLoader;
+    const loader = loaderReady ? new THREE.GLTFLoader() : null;
+    if(loader) loader.crossOrigin = 'anonymous';
+
+    const finnGroup = new THREE.Group();
+    finnGroup.position.set(-3.35,0,-3.35);
+    finnGroup.rotation.y = .65;
+    scene.add(finnGroup);
+    finn = finnGroup;
+
+    const fLabel = makeTextSprite('Finn', {scaleX:1.45, scaleY:.45, fontSize:30});
+    fLabel.position.set(0,2.55,0);
+    finnGroup.add(fLabel);
+
+    if(loader){
+      loader.load(FINN_MODEL_URL, (gltf)=>{
+        const model = gltf.scene;
+        fitModelToHeight(model, 2.35);
+        model.traverse(o => { if(o.isMesh){ o.castShadow=true; o.receiveShadow=true; }});
+        finnGroup.add(model);
+      }, undefined, () => addFallbackFinn(finnGroup));
+    } else {
+      addFallbackFinn(finnGroup);
+    }
+
+    const shipGroup = new THREE.Group();
+    shipGroup.position.set(5.9,.08,2.55);
+    shipGroup.rotation.y = -2.35;
+    scene.add(shipGroup);
+    finnShip = shipGroup;
+
+    const shipLabel = makeTextSprite('Finn Ship', {scaleX:1.85, scaleY:.44, fontSize:28});
+    shipLabel.position.set(0,1.6,0);
+    shipGroup.add(shipLabel);
+
+    if(loader){
+      loader.load(FINN_SHIP_URL, (gltf)=>{
+        const model = gltf.scene;
+        fitModelToHeight(model, 1.25);
+        model.rotation.y = Math.PI;
+        model.traverse(o => { if(o.isMesh){ o.castShadow=true; o.receiveShadow=true; }});
+        shipGroup.add(model);
+      }, undefined, () => addFallbackShip(shipGroup));
+    } else {
+      addFallbackShip(shipGroup);
+    }
+
+    addBlocker({type:'circle', x:finnGroup.position.x, z:finnGroup.position.z, r:.65, label:'Finn'});
+    addBlocker({type:'circle', x:shipGroup.position.x, z:shipGroup.position.z, r:1.05, label:'Finn spaceship'});
+  }
+  function addFallbackFinn(group){
+    const pinkMat = new THREE.MeshStandardMaterial({color:0xff78b8, roughness:.4, metalness:.06, emissive:0x551022, emissiveIntensity:.12});
+    const whiteMat = new THREE.MeshStandardMaterial({color:0xeaffff, roughness:.28, metalness:.12, emissive:0x8cfaff, emissiveIntensity:.06});
+    const darkMat = new THREE.MeshStandardMaterial({color:0x22283d, roughness:.45});
+    const body = makeCapsule(.28,.75,whiteMat,24); body.position.y=1.05; body.scale.set(1.05,1,.75); group.add(body);
+    const neck = makeCapsule(.09,.62,pinkMat,18); neck.position.set(.06,1.58,.05); neck.rotation.z=-.16; group.add(neck);
+    const head = new THREE.Mesh(new THREE.SphereGeometry(.25,24,16), pinkMat); head.position.set(.14,1.98,.08); head.castShadow=true; group.add(head);
+    const beak = new THREE.Mesh(new THREE.ConeGeometry(.09,.34,18), new THREE.MeshStandardMaterial({color:0xffc34d, roughness:.45})); beak.position.set(.14,1.96,.34); beak.rotation.x=Math.PI/2; group.add(beak);
+    const helmet = new THREE.Mesh(new THREE.SphereGeometry(.34,28,18), new THREE.MeshPhysicalMaterial({color:0xdfffff, transparent:true, opacity:.36, roughness:.03, metalness:.02}));
+    helmet.position.set(.14,1.98,.08); group.add(helmet);
+    const leg1 = makeCapsule(.045,.52,pinkMat,12); leg1.position.set(-.12,.42,.03); group.add(leg1);
+    const leg2 = makeCapsule(.045,.52,pinkMat,12); leg2.position.set(.13,.42,.03); group.add(leg2);
+    const boot1 = new THREE.Mesh(new THREE.BoxGeometry(.18,.08,.25), darkMat); boot1.position.set(-.12,.05,.07); group.add(boot1);
+    const boot2 = boot1.clone(); boot2.position.x=.13; group.add(boot2);
+  }
+  function addFallbackShip(group){
+    const hullMat = new THREE.MeshStandardMaterial({color:0xff70d7, metalness:.38, roughness:.26, emissive:0x451842, emissiveIntensity:.18});
+    const glassMat = new THREE.MeshPhysicalMaterial({color:0x8cecff, transparent:true, opacity:.58, roughness:.03, metalness:.05});
+    const hull = new THREE.Mesh(new THREE.SphereGeometry(.85,32,18), hullMat);
+    hull.scale.set(1.45,.42,.82); hull.position.y=.55; hull.castShadow=true; group.add(hull);
+    const dome = new THREE.Mesh(new THREE.SphereGeometry(.45,28,14), glassMat);
+    dome.scale.set(1,.62,1); dome.position.y=.92; group.add(dome);
+    const wingL = new THREE.Mesh(new THREE.BoxGeometry(.75,.08,.22), hullMat); wingL.position.set(-.88,.48,0); wingL.rotation.z=.15; group.add(wingL);
+    const wingR = wingL.clone(); wingR.position.x=.88; wingR.rotation.z=-.15; group.add(wingR);
+    const glow = new THREE.PointLight(0xff70d7,1.2,5); glow.position.set(0,.55,0); group.add(glow);
+  }
+
   function createSpaceProps(){
     const rockMat = new THREE.MeshStandardMaterial({color:0xd99a60, roughness:.86, metalness:.04});
     for(let i=0;i<12;i++){
@@ -799,9 +1601,14 @@
     const dt = Math.min(clock.getDelta(), .04);
     updateJoe(dt);
     updateCamera(dt);
-    if(planet) planet.rotation.y += dt*.08;
-    if(asteroid){ asteroid.rotation.x += dt*.65; asteroid.rotation.y += dt*.42; asteroid.position.x += Math.sin(performance.now()*.0008)*dt*.18; }
+    if(rocket) rocket.rotation.y += dt*.08;
+    if(fuelWarning){ fuelWarning.rotation.x += dt*.65; fuelWarning.rotation.y += dt*.42; fuelWarning.position.x += Math.sin(performance.now()*.0008)*dt*.18; }
     if(computerScreen){ computerScreen.material.opacity = .54 + Math.sin(performance.now()*.006)*.18; }
+    if(finn){ finn.position.y = Math.sin(performance.now()*.0022)*.04; }
+    if(finnShip){
+      finnShip.position.y = .08 + Math.sin(performance.now()*.0018)*.08;
+      if(finnShipFlying){ finnShip.position.x += dt*1.8; finnShip.position.y += dt*.9; finnShip.rotation.z = THREE.MathUtils.lerp(finnShip.rotation.z,-.22,dt*2); }
+    }
     renderer.render(scene,camera);
   }
   function updateJoe(dt){
@@ -828,25 +1635,25 @@
     }
     animateJoeWalk(moving, dt);
 
-    const dLauncher = Math.hypot(joe.position.x-activatePos.x, joe.position.z-activatePos.z);
-    nearLauncher = dLauncher < 1.35;
-    promptPill.style.display = nearLauncher ? 'flex' : 'none';
+    const dRefueler = Math.hypot(joe.position.x-activatePos.x, joe.position.z-activatePos.z);
+    nearRefueler = dRefueler < 1.35;
+    promptPill.style.display = nearRefueler ? 'flex' : 'none';
     const startDistance = Math.hypot(joePos.x-activatePos.x, joePos.z-activatePos.z);
-    const progress = Math.max(0, Math.min(1, 1 - dLauncher/startDistance));
+    const progress = Math.max(0, Math.min(1, 1 - dRefueler/startDistance));
     distanceFill.style.width = (progress*100).toFixed(0)+'%';
-    if(nearLauncher){
-      missionTitle.textContent = 'Launcher Reached';
-      missionText.textContent = 'Activate the console and complete the Adding of Like Fractions Test.';
+    if(nearRefueler){
+      missionTitle.textContent = 'Refueling Machine Reached';
+      missionText.textContent = 'Activate Finn’s refueler and complete the Adding Like Fractions Test.';
     } else {
       missionTitle.textContent = 'Mission Objective';
-      missionText.textContent = 'Walk Uncle Joe to the launch bay and rocket launcher. Walls, the console and rocket pad are solid.';
+      missionText.textContent = 'Walk Space Max to Finn’s refueling machine. Walls, the console and rocket pad are solid.';
     }
   }
   function updateCamera(dt){
     if(!joe || !camera) return;
     const targetX = joe.position.x;
     const targetZ = joe.position.z;
-    // Low, close, screenshot-like camera: Uncle Joe is large, with the orange chamber and rocket behind him.
+    // Low, close, screenshot-like camera: Space Max is large, with the orange chamber and rocket behind him.
     const desired = new THREE.Vector3(targetX + 3.15, 3.15, targetZ + 6.45);
     camera.position.lerp(desired, dt*4.2);
     camera.lookAt(targetX, 1.2, targetZ - 2.1);
@@ -876,22 +1683,46 @@
   $('activateBtn').addEventListener('click',tryActivate);
   $('mobileActivate').addEventListener('click',tryActivate);
 
+
+  const goConsoleBtn = $('goConsoleBtn');
+  if(goConsoleBtn){
+    goConsoleBtn.addEventListener('click', () => {
+      ensureAudio();
+      sound('beep');
+      coverOverlay.style.display='none';
+      startAmbience();
+      gameStarted = true;
+      autoWalk = false;
+      if(joe){
+        joe.position.set(activatePos.x + .25, 0, activatePos.z + .8);
+        joe.rotation.y = Math.PI;
+      }
+      hudText.textContent = 'Space Max is beside Finn’s refueling machine.';
+      missionTitle.textContent = 'Refueling Machine Ready';
+      missionText.textContent = 'Activate Finn’s refueler and complete the Adding Like Fractions Test.';
+      promptPill.style.display = 'flex';
+      nearRefueler = true;
+    });
+  }
+
   $('startBtn').addEventListener('click', () => {
     ensureAudio(); sound('beep'); coverOverlay.style.display='none';
     playCinematic('introAsteroid', () => {
-      startAmbience();
-      gameStarted = true;
-      autoWalk = true;
-      hudText.textContent = 'Uncle Joe is walking to the launcher. Use WASD, arrow keys, or mobile buttons if you want to take over.';
-      sound('tap');
+      showDialogueSequence(introDialogues, () => {
+        startAmbience();
+        gameStarted = true;
+        autoWalk = true;
+        hudText.textContent = 'Space Max is walking to Finn’s refueling machine. The tank is empty, so he must answer Adding Like Fractions questions to refuel it.';
+        sound('tap');
+      });
     });
   });
 
   function tryActivate(){
     if(!gameStarted || completed) return;
-    if(!nearLauncher){
+    if(!nearRefueler){
       missionTitle.textContent = 'Move Closer';
-      missionText.textContent = 'Uncle Joe needs to stand next to the launcher console first.';
+      missionText.textContent = 'Space Max needs to stand next to Finn’s refueling machine first.';
       sound('wrong');
       return;
     }
@@ -955,9 +1786,9 @@
     if(launchReady) return;
     launchReady = true;
     closeQuiz();
-    hudText.textContent = 'Test completed. The launch button is ready.';
-    missionTitle.textContent = 'Launch Button Ready';
-    missionText.textContent = 'Press the launch button to fire the rocket and save the planet.';
+    hudText.textContent = 'Test completed. The refueling machine is ready to fill Finn’s empty tank.';
+    missionTitle.textContent = 'Refueling Button Ready';
+    missionText.textContent = 'Press the refueling button to fill Finn’s empty tank.';
     promptPill.style.display = 'none';
     $('launchReadyOverlay').style.display = 'flex';
     sound('correct');
@@ -968,13 +1799,14 @@
     completed = true;
     $('launchReadyOverlay').style.display = 'none';
     stopAmbience();
-    hudText.textContent = 'Rocket launched. Watch the asteroid defence sequence.';
-    missionTitle.textContent = 'Rocket Launched';
-    missionText.textContent = 'The defence rocket is on its way.';
+    hudText.textContent = 'Refueling started. Watch the empty tank become full.';
+    missionTitle.textContent = 'Rocket Refueled';
+    missionText.textContent = 'Finn’s tank is filling after Space Max answers the Adding Like Fractions questions.';
     sound('launch');
     playCinematic('joePressingButtons', () => {
-      playCinematic('rocketLaunching', () => {
-        playCinematic('asteroidExplosion', () => {
+      showDialogueSequence(endingDialogues, () => {
+        finnShipFlying = true;
+        playCinematic('rocketLaunching', () => {
           endCard.style.display='flex';
           sound('correct');
         });
@@ -1002,11 +1834,21 @@
     cinVideo.onended=null;
     cinVideo.onerror=null;
 
-    if(activeCinematicAudio){
-      activeCinematicAudio.pause();
-      activeCinematicAudio.removeAttribute('src');
-      activeCinematicAudio = null;
+    function stopActiveCinematicAudio(){
+      if(activeCinematicAudio){
+        try{ activeCinematicAudio.pause(); }catch(e){}
+        try{ activeCinematicAudio.removeAttribute('src'); }catch(e){}
+        try{ activeCinematicAudio.load && activeCinematicAudio.load(); }catch(e){}
+        try{
+          if(activeCinematicAudio.parentNode && activeCinematicAudio.dataset && activeCinematicAudio.dataset.tempCinematic === '1'){
+            activeCinematicAudio.parentNode.removeChild(activeCinematicAudio);
+          }
+        }catch(e){}
+        activeCinematicAudio = null;
+      }
     }
+
+    stopActiveCinematicAudio();
 
     clearTimeout(cinematicTimer);
 
@@ -1028,11 +1870,7 @@
       cinVideo.load();
       cinVideo.style.display='none';
 
-      if(activeCinematicAudio){
-        activeCinematicAudio.pause();
-        activeCinematicAudio.removeAttribute('src');
-        activeCinematicAudio = null;
-      }
+      stopActiveCinematicAudio();
 
       done && done();
     };
@@ -1045,10 +1883,27 @@
 
     const prepareAudio = () => {
       if(!soundOn || !audioUrl) return null;
-      const a = new Audio(audioUrl);
+      const lower = String(audioUrl).toLowerCase();
+      const a = lower.includes('.mp4') || lower.includes('.webm') || lower.includes('.mov')
+        ? document.createElement('video')
+        : new Audio();
+      a.src = audioUrl;
       a.preload = 'auto';
-      a.volume = type === 'introAsteroid' ? 0.92 : 0.75;
+      a.volume = type === 'introAsteroid' ? 0.95 : 0.82;
       a.currentTime = 0;
+      a.muted = false;
+      a.playsInline = true;
+      a.setAttribute && a.setAttribute('playsinline','');
+      a.setAttribute && a.setAttribute('webkit-playsinline','');
+      if(a.tagName && a.tagName.toLowerCase() === 'video'){
+        a.style.position = 'fixed';
+        a.style.width = '1px';
+        a.style.height = '1px';
+        a.style.opacity = '0';
+        a.style.pointerEvents = 'none';
+        a.dataset.tempCinematic = '1';
+        document.body.appendChild(a);
+      }
       return a;
     };
 
@@ -1058,25 +1913,24 @@
       clearTimeout(cinematicTimer);
       if(videoPlayFallback) videoPlayFallback.style.display = 'none';
 
-      if(activeCinematicAudio){
-        activeCinematicAudio.pause();
-        activeCinematicAudio = null;
-      }
+      stopActiveCinematicAudio();
       activeCinematicAudio = prepareAudio();
 
+      const mediaPromises = [];
       if(activeCinematicAudio){
-        activeCinematicAudio.play().catch(() => {
-          // If the MP3 is blocked, keep the video playing.
-        });
+        const ap = activeCinematicAudio.play();
+        if(ap && ap.catch) mediaPromises.push(ap);
       }
 
       const playPromise = cinVideo.play();
-      if(playPromise && playPromise.catch){
-        playPromise.catch(() => {
+      if(playPromise && playPromise.catch) mediaPromises.push(playPromise);
+
+      if(mediaPromises.length){
+        Promise.all(mediaPromises).catch(() => {
           hasStarted = false;
+          try{ cinVideo.pause(); }catch(e){}
           if(activeCinematicAudio){
-            activeCinematicAudio.pause();
-            activeCinematicAudio.currentTime = 0;
+            try{ activeCinematicAudio.pause(); activeCinematicAudio.currentTime = 0; }catch(e){}
           }
           if(videoPlayFallback) videoPlayFallback.style.display = 'flex';
         });
@@ -1116,7 +1970,11 @@
       hasStarted = false;
       const url = sources[sourceIndex++];
       cinVideo.src = url;
-      cinVideo.muted = audioUrl ? true : !soundOn;
+      // Keep the actual cinematic video unmuted. The low/full battery MP4 clips
+      // may already contain their own audio track. If the browser blocks it,
+      // the manual "Tap to play video with sound" button will appear.
+      cinVideo.muted = !soundOn;
+      cinVideo.volume = soundOn ? 1 : 0;
       cinVideo.playsInline = true;
       cinVideo.setAttribute('playsinline','');
       cinVideo.setAttribute('webkit-playsinline','');
@@ -1129,6 +1987,7 @@
       cinVideo.onended = finish;
       cinVideo.onerror = () => {
         sourceFailed = true;
+        stopActiveCinematicAudio();
         cinVideo.pause();
         cinVideo.removeAttribute('src');
         cinVideo.load();
@@ -1143,9 +2002,10 @@
       cinVideo.oncanplay = readyStart;
       cinVideo.onloadeddata = readyStart;
 
-      // Important: start muted video immediately from the Start Mission click.
-      // The separate horror MP3 starts inside beginVideoAndSound at the same moment.
+      // Start immediately so the Start/Refuel button tap unlocks sound on mobile browsers.
+      // If playback is blocked, the manual tap-to-play fallback appears.
       cinVideo.load();
+      beginVideoAndSound();
 
       setTimeout(() => {
         if(hasFinished || hasStarted || sourceFailed) return;
@@ -1163,22 +2023,23 @@
   function getSceneInfo(type){
     const baseTitle = (main, sub) => `<div class="sceneTitle"><strong>${main}</strong><span>${sub}</span></div>`;
     if(type==='introAsteroid') return {
-      duration: 4300, className:'introScene', html: `${baseTitle('Asteroid Warning','A giant asteroid is moving towards the planet!')}<div class="cPlanet"></div><div class="cAsteroid"></div>`
+      duration: 4300, className:'introScene', html: `${baseTitle('Low Battery Warning','Finn’s rocket tank is empty and cannot take off.')}<div class="cPlanet"></div><div class="cAsteroid"></div>`
     };
     if(type==='joePressingButtons') return {
-      duration: 3800, className:'buttonScene', html: `${baseTitle('Launch Access Granted','Uncle Joe presses the defence buttons.')}<div class="joe"><div class="joeHead"></div><div class="joeBody"></div><div class="joeArm"></div><div class="joeLeg l1"></div><div class="joeLeg l2"></div></div><div class="panel"><div class="screenLine"></div><div class="button b1"></div><div class="button b2"></div><div class="button b3"></div></div>`
+      duration: 3800, className:'buttonScene', html: `${baseTitle('Full Battery','The refueling machine fills Finn’s rocket tank.')}<div class="panel"><div class="screenLine"></div><div class="button b1"></div><div class="button b2"></div><div class="button b3"></div></div>`
     };
     if(type==='rocketLaunching') return {
-      duration: 4200, className:'launchScene', html: `${baseTitle('Rocket Launch','The defence rocket blasts into space.')}<div class="tower"></div><div class="rocket"></div>`
+      duration: 4200, className:'launchScene', html: `${baseTitle('Finn Flies Away','Finn’s spaceship lifts off with a full tank.')}<div class="tower"></div><div class="rocket"></div>`
     };
     return {
-      duration: 4200, className:'explosionScene', html: `${baseTitle('Asteroid Destroyed','The planet is safe!')}<div class="rocketDot"></div><div class="bigAsteroid"></div><div class="blast"></div><div class="cPlanet" style="right:6%;bottom:7%;transform:scale(.65)"></div>`
+      duration: 4200, className:'launchScene', html: `${baseTitle('Finn Flies Away','Finn’s spaceship lifts off with a full tank.')}<div class="tower"></div><div class="rocket"></div>`
     };
   }
 
   $('playAgainBtn').addEventListener('click',()=>location.reload());
 
 
+  try{ if('speechSynthesis' in window){ window.speechSynthesis.onvoiceschanged = () => {}; } }catch(e){}
   initThree();
 })();
 </script>
